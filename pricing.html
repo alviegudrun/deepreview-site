@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pricing – DeepReview</title>
   <link rel="stylesheet" href="assets/style.css">
+  <script src="https://cdn.paddle.com/paddle/paddle.js"></script>
 </head>
 <body>
   <header class="site-header plain">
@@ -21,46 +22,95 @@
   <section class="section">
     <div class="container">
       <h1 class="section-title">Simple, transparent pricing</h1>
-      <p class="muted center">Billed by Paddle. Taxes may apply in your region.</p>
-      <div class="grid grid-3 pricing-grid">
+      <p class="muted center">Subscribe securely via Paddle. Taxes may apply in your region.</p>
+      <div class="pricing-grid-single">
         <div class="card price">
           <div class="price-header">Free</div>
           <div class="price-value">$0</div>
           <ul class="price-features">
-            <li>Core review features</li>
-            <li>Local-only storage</li>
-            <li>Community support</li>
+            <li>✅ Unlimited monthly usage</li>
+            <li>✅ Support for predefined check rules</li>
+            <li>✅ Support for local deployment models</li>
+            <li>✅ Support for report export</li>
+            <li>❌ Custom rules not supported</li>
+            <li>❌ Parallel tasks not supported</li>
+            <li>❌ Merge analysis not supported</li>
+            <li>❌ Review mode not supported</li>
           </ul>
-          <a class="btn btn-ghost full" href="#">Get Started</a>
+          <button class="btn btn-ghost full" onclick="handleFreeStart()">Get Started Free</button>
         </div>
-        <div class="card price featured">
-          <div class="ribbon">Popular</div>
-          <div class="price-header">Pro – Monthly</div>
-          <div class="price-value">$9<span>/mo</span></div>
-          <ul class="price-features">
-            <li>All Free features</li>
-            <li>Faster parallel batches</li>
-            <li>Priority updates</li>
-          </ul>
-          <a class="btn btn-primary full" href="#checkout-monthly">Buy Monthly</a>
-        </div>
+        
         <div class="card price">
-          <div class="price-header">Pro – Yearly</div>
-          <div class="price-value">$79<span>/yr</span></div>
+          <div class="price-header">DeepReview Pro</div>
+          <div class="price-value">$5.99<span>/month</span></div>
           <ul class="price-features">
-            <li>Everything in Pro</li>
-            <li>2 months free</li>
-            <li>Best value</li>
+            <li>✅ All Free features</li>
+            <li>✅ Custom rules, parallel tasks, merge analysis, review mode</li>
+            <li>✅ Priority support</li>
+            <li>✅ Early access to new features</li>
           </ul>
-          <a class="btn btn-primary full" href="#checkout-yearly">Buy Yearly</a>
+          <button class="btn btn-primary full" onclick="handleUpgrade('monthly')">Subscribe Monthly</button>
+          <p class="pricing-note">Cancel anytime.</p>
+        </div>
+        
+        <div class="card price featured">
+          <div class="ribbon">Most Popular</div>
+          <div class="price-header">DeepReview Pro</div>
+          <div class="price-value">$59.90<span>/year</span></div>
+          <ul class="price-features">
+            <li>✅ All Free features</li>
+            <li>✅ Custom rules, parallel tasks, merge analysis, review mode</li>
+            <li>✅ Priority support</li>
+            <li>✅ Early access to new features</li>
+          </ul>
+          <button class="btn btn-primary full" onclick="handleUpgrade('yearly')" id="upgrade-btn">Subscribe Yearly</button>
+          <p class="pricing-note">Save over 15% compared to monthly.</p>
         </div>
       </div>
 
+      <div class="pricing-faq">
+        <h3>Frequently Asked Questions</h3>
+        <details>
+          <summary>Can I cancel anytime?</summary>
+          <p>Yes, you can cancel your subscription at any time. Your access continues until the end of your billing period.</p>
+        </details>
+        <details>
+          <summary>What are custom rules?</summary>
+          <p>Create your own code review rules tailored to your team's specific standards and requirements.</p>
+        </details>
+        <details>
+          <summary>How does parallel processing work?</summary>
+          <p>Process multiple files simultaneously for faster review times, especially beneficial for large codebases.</p>
+        </details>
+        <details>
+          <summary>What is merge analysis?</summary>
+          <p>Analyze related files as a whole to validate overall logic and cross-file dependencies.</p>
+        </details>
+      </div>
+
       <div class="note center">
-        For teams or testing licenses, contact us: <a href="mailto:alviegudrun@gmail.com">alviegudrun@gmail.com</a>
+        We highly value all user experiences, and all basic features are open to the free version.<br>
+        For teams or enterprise licenses, contact us: <a href="mailto:alviegudrun@gmail.com">alviegudrun@gmail.com</a><br>
+        Thank you for your support! 🙏
       </div>
     </div>
   </section>
+
+  <!-- Payment Processing Modal -->
+  <div id="payment-modal" class="payment-modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Processing Payment...</h3>
+        <button class="modal-close" onclick="closePaymentModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="payment-status">
+          <div class="spinner"></div>
+          <p id="payment-status-text">Initializing payment...</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <footer class="site-footer">
     <div class="container footer-inner">
@@ -72,5 +122,364 @@
       </nav>
     </div>
   </footer>
+
+  <script>
+    // Paddle configuration
+    const PADDLE_CONFIG = {
+      vendorId: 'YOUR_PADDLE_VENDOR_ID', // Replace with actual vendor ID
+      environment: 'sandbox', // Change to 'production' for live
+      products: {
+        yearly: 'pri_01k39w7nmf4vd3rn1byb6p8ny6',
+        monthly: 'pri_01k39wh6ex2ddg4bt2v5vh53ym'
+      }
+    };
+
+    // Initialize Paddle
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof Paddle !== 'undefined') {
+        Paddle.Setup({ 
+          vendor: PADDLE_CONFIG.vendorId,
+          eventCallback: function(data) {
+            console.log('Paddle event:', data);
+          }
+        });
+        console.log('Paddle initialized with vendor:', PADDLE_CONFIG.vendorId);
+      } else {
+        console.error('Paddle.js not loaded');
+      }
+    });
+
+    function getUrlParams() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return {
+        email: urlParams.get('email'),
+        plan: urlParams.get('plan'),
+        flowId: urlParams.get('flowId'),
+        userName: urlParams.get('userName') || '',
+        userSub: urlParams.get('userSub') || ''
+      };
+    }
+
+    function handleFreeStart() {
+      // Redirect to Chrome Web Store or direct download
+      alert('Please install the DeepReview extension from the Chrome Web Store to get started.');
+    }
+
+    function handleUpgrade(plan) {
+      const params = getUrlParams();
+      const userEmail = params.email || prompt('Please enter your email address:');
+      const userName = params.userName || '';
+      const userSub = params.userSub || '';
+      const flowId = params.flowId || `web_${Date.now()}`;
+      
+      if (!userEmail) {
+        alert('Email address is required to proceed with upgrade.');
+        return;
+      }
+
+      if (!PADDLE_CONFIG.products[plan]) {
+        alert('Product configuration error. Please contact support.');
+        return;
+      }
+
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(userEmail)) {
+        alert('Please enter a valid email address.');
+        return;
+      }
+
+      showPaymentModal();
+      updatePaymentStatus('Initializing payment...');
+
+      console.log('Starting payment flow:', {
+        plan,
+        userEmail,
+        userName,
+        flowId,
+        productId: PADDLE_CONFIG.products[plan]
+      });
+
+      // Configure Paddle checkout
+      Paddle.Checkout.open({
+        product: PADDLE_CONFIG.products[plan],
+        email: userEmail,
+        customerEmail: userEmail,
+        allowQuantityChange: false,
+        disableLogout: true,
+        displayModeTheme: 'light',
+        locale: 'en',
+        
+        // Custom data for webhook processing
+        passthrough: JSON.stringify({
+          user_email: userEmail,
+          user_name: userName,
+          user_sub: userSub,
+          plan: plan,
+          source: 'extension',
+          flow_id: flowId,
+          extension_version: '1.1.2',
+          timestamp: new Date().toISOString()
+        }),
+        
+        // Success callback
+        successCallback: function(data) {
+          console.log('Payment successful:', data);
+          updatePaymentStatus('Payment successful! Activating your subscription...');
+          
+          setTimeout(() => {
+            handlePaymentSuccess(data);
+          }, 2000);
+        },
+        
+        // Close callback
+        closeCallback: function(data) {
+          console.log('Checkout closed:', data);
+          
+          if (data && data.checkout) {
+            const checkout = data.checkout;
+            if (checkout.completed) {
+              console.log('Payment completed via close callback');
+              updatePaymentStatus('Payment completed! Processing...');
+              setTimeout(() => {
+                handlePaymentSuccess(data);
+              }, 3000);
+            } else if (!checkout.cancelled) {
+              console.log('Payment may be processing...');
+              updatePaymentStatus('Payment may be processing. Please wait...');
+              // Wait longer before closing
+              setTimeout(() => {
+                closePaymentModal();
+                showProcessingNotice();
+              }, 10000);
+            } else {
+              console.log('Payment cancelled by user');
+              closePaymentModal();
+            }
+          } else {
+            console.log('Checkout closed without data');
+            closePaymentModal();
+          }
+        },
+        
+        // Error callback
+        errorCallback: function(error) {
+          console.error('Payment error:', error);
+          updatePaymentStatus('Payment failed. Please try again.');
+          setTimeout(() => {
+            closePaymentModal();
+          }, 3000);
+        }
+      });
+    }
+
+    function showPaymentModal() {
+      document.getElementById('payment-modal').classList.remove('hidden');
+    }
+
+    function closePaymentModal() {
+      document.getElementById('payment-modal').classList.add('hidden');
+    }
+
+    function updatePaymentStatus(message) {
+      document.getElementById('payment-status-text').textContent = message;
+    }
+
+    function handlePaymentSuccess(data) {
+      updatePaymentStatus('Subscription activated successfully!');
+      
+      setTimeout(() => {
+        closePaymentModal();
+        
+        // Show success message
+        const message = `🎉 Welcome to DeepReview Pro!
+
+Your subscription is now active. You can:
+• Close this page and return to the extension
+• The extension will automatically detect your Pro status
+• Enjoy unlimited features!
+
+Thank you for your support! 🙏`;
+        
+        alert(message);
+        
+        // Try to close window or redirect
+        if (window.opener) {
+          window.close();
+        } else {
+          // Redirect to success page
+          window.location.href = 'index.html?success=true';
+        }
+      }, 3000);
+    }
+
+    function showProcessingNotice() {
+      const message = `Payment Processing Notice
+
+Your payment may still be processing. 
+
+What to do next:
+• Return to the extension and wait a few minutes
+• The extension will automatically detect your subscription status
+• If you don't see Pro features after 10 minutes, please contact support
+
+Thank you for your patience!`;
+      
+      alert(message);
+    }
+
+    // Auto-trigger upgrade if parameters are present
+    document.addEventListener('DOMContentLoaded', function() {
+      const params = getUrlParams();
+      if (params.plan && params.email) {
+        console.log('Auto-triggering upgrade with params:', params);
+        // Small delay to ensure Paddle is loaded
+        setTimeout(() => {
+          handleUpgrade(params.plan);
+        }, 1000);
+      }
+    });
+
+    // Handle success redirect from index page
+    if (window.location.search.includes('success=true')) {
+      document.addEventListener('DOMContentLoaded', function() {
+        const successBanner = document.createElement('div');
+        successBanner.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          background: #10b981;
+          color: white;
+          text-align: center;
+          padding: 1rem;
+          z-index: 1000;
+          font-weight: 500;
+        `;
+        successBanner.textContent = '🎉 Payment successful! Your DeepReview Pro subscription is now active.';
+        document.body.appendChild(successBanner);
+        
+        setTimeout(() => {
+          successBanner.remove();
+        }, 10000);
+      });
+    }
+  </script>
+
+  <style>
+    .pricing-grid-single {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .price-trial {
+      color: #059669;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .pricing-note {
+      font-size: 0.8rem;
+      color: #6b7280;
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+
+    .pricing-faq {
+      margin-top: 3rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .pricing-faq h3 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .pricing-faq details {
+      margin-bottom: 1rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.5rem;
+      padding: 1rem;
+    }
+
+    .pricing-faq summary {
+      font-weight: 500;
+      cursor: pointer;
+      margin-bottom: 0.5rem;
+    }
+
+    .pricing-faq details[open] summary {
+      margin-bottom: 1rem;
+    }
+
+    .payment-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .payment-modal.hidden {
+      display: none;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 0.5rem;
+      max-width: 400px;
+      width: 90%;
+      overflow: hidden;
+    }
+
+    .modal-header {
+      padding: 1rem;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      padding: 2rem;
+    }
+
+    .payment-status {
+      text-align: center;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #f3f4f6;
+      border-top: 4px solid #3b82f6;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 </body>
 </html> 
