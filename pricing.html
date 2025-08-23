@@ -253,6 +253,9 @@
           timestamp: new Date().toISOString()
         }
       });
+
+      // Start monitoring the overlay so our spinner is hidden at the right time
+      monitorCheckoutOverlay();
       
       console.log('✅ Paddle checkout opened successfully');
     }
@@ -267,6 +270,33 @@
 
     function updatePaymentStatus(message) {
       document.getElementById('payment-status-text').textContent = message;
+    }
+
+    // Hide our processing modal when Paddle overlay appears or is closed
+    function monitorCheckoutOverlay() {
+      // Poll briefly for the overlay iframe to show, then hide our spinner
+      const start = Date.now();
+      const maxWaitMs = 8000;
+      const interval = setInterval(() => {
+        const overlay = document.querySelector('iframe[src*="paddle"]');
+        const isHidden = document.querySelector('#payment-modal.hidden');
+        if (overlay && !isHidden) {
+          closePaymentModal();
+          clearInterval(interval);
+          return;
+        }
+        if (Date.now() - start > maxWaitMs) {
+          clearInterval(interval);
+        }
+      }, 300);
+
+      // Best effort: if Paddle provides Events, also close on checkout.closed
+      if (window.Paddle && Paddle.Events && typeof Paddle.Events.on === 'function') {
+        try {
+          Paddle.Events.on('checkout.closed', function(){ closePaymentModal(); });
+          Paddle.Events.on('checkout.loaded', function(){ closePaymentModal(); });
+        } catch(_){}
+      }
     }
 
     function handlePaymentSuccess(data) {
