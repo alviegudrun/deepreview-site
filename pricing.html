@@ -226,55 +226,6 @@
           flow_id: flowId,
           extension_version: '1.1.2',
           timestamp: new Date().toISOString()
-        },
-        
-        // Success callback
-        successCallback: function(data) {
-          console.log('Payment successful:', data);
-          updatePaymentStatus('Payment successful! Activating your subscription...');
-          
-          setTimeout(() => {
-            handlePaymentSuccess(data);
-          }, 2000);
-        },
-        
-        // Close callback
-        closeCallback: function(data) {
-          console.log('Checkout closed:', data);
-          
-          if (data && data.checkout) {
-            const checkout = data.checkout;
-            if (checkout.completed) {
-              console.log('Payment completed via close callback');
-              updatePaymentStatus('Payment completed! Processing...');
-              setTimeout(() => {
-                handlePaymentSuccess(data);
-              }, 3000);
-            } else if (!checkout.cancelled) {
-              console.log('Payment may be processing...');
-              updatePaymentStatus('Payment may be processing. Please wait...');
-              // Wait longer before closing
-              setTimeout(() => {
-                closePaymentModal();
-                showProcessingNotice();
-              }, 10000);
-            } else {
-              console.log('Payment cancelled by user');
-              closePaymentModal();
-            }
-          } else {
-            console.log('Checkout closed without data');
-            closePaymentModal();
-          }
-        },
-        
-        // Error callback
-        errorCallback: function(error) {
-          console.error('Payment error:', error);
-          updatePaymentStatus('Payment failed. Please try again.');
-          setTimeout(() => {
-            closePaymentModal();
-          }, 3000);
         }
       });
     }
