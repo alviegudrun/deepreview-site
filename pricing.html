@@ -221,31 +221,58 @@
         productId: PADDLE_CONFIG.products[plan]
       });
 
-      // Configure Paddle checkout
-      Paddle.Checkout.open({
-        items: [{ priceId: PADDLE_CONFIG.products[plan], quantity: 1 }],
-        customer: { email: userEmail },
-        settings: {
-          displayMode: 'overlay',
-          theme: 'light',
-          allowLogout: false,
-          locale: 'en'
-        },
-        
-        // Custom data for webhook processing
-        customData: {
-          user_email: userEmail,
-          ...(userName && { user_name: userName }),
-          ...(userSub && { user_sub: userSub }),
-          plan: plan,
-          source: 'extension',
-          flow_id: flowId,
-          extension_version: '1.1.2',
-          timestamp: new Date().toISOString()
-        }
-      });
+      // Debug: Let's try the most basic configuration first
+      console.log('=== Attempting basic checkout ===');
+      console.log('Price ID:', PADDLE_CONFIG.products[plan]);
+      console.log('User email:', userEmail);
+      console.log('PADDLE_CONFIG:', PADDLE_CONFIG);
+      console.log('Token:', PADDLE_CLIENT_TOKEN);
       
-      console.log('✅ Paddle checkout opened successfully');
+      try {
+        // Try the most minimal configuration
+        Paddle.Checkout.open({
+          items: [{ priceId: PADDLE_CONFIG.products[plan], quantity: 1 }]
+        });
+        
+        console.log('✅ Basic checkout call made');
+        
+        // Check for errors after a delay
+        setTimeout(() => {
+          const errorElements = document.querySelectorAll('[class*="error"], [class*="Error"]');
+          if (errorElements.length > 0) {
+            console.log('❌ Error elements found:', errorElements);
+          }
+          
+          // Check iframe content
+          const iframe = document.querySelector('iframe[src*="paddle"]');
+          if (iframe) {
+            console.log('Iframe found:', iframe.src);
+            console.log('Iframe dimensions:', iframe.style.width, iframe.style.height);
+            
+            // Try to access iframe content (might be blocked by CORS)
+            try {
+              const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+              console.log('Iframe document:', iframeDoc);
+            } catch (e) {
+              console.log('Cannot access iframe content (CORS):', e.message);
+            }
+          }
+        }, 3000);
+        
+      } catch (error) {
+        console.error('❌ Checkout failed:', error);
+        
+        // Try alternative: PricePreview to test if token works at all
+        console.log('=== Testing token with PricePreview ===');
+        Paddle.PricePreview({
+          items: [{ priceId: PADDLE_CONFIG.products[plan], quantity: 1 }]
+        }).then(result => {
+          console.log('✅ PricePreview works - token is valid:', result);
+          console.log('Issue might be with checkout-specific permissions or price configuration');
+        }).catch(previewError => {
+          console.error('❌ PricePreview failed - token or price issue:', previewError);
+        });
+      }
     }
 
     function showPaymentModal() {
