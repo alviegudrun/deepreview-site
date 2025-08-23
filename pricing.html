@@ -266,9 +266,18 @@
         
         // Try alternative: PricePreview to test if token works at all
         console.log('=== Testing token with PricePreview ===');
-        Paddle.PricePreview({
+        console.log('Testing price ID:', PADDLE_CONFIG.products[plan]);
+        
+        const pricePreviewPromise = Paddle.PricePreview({
           items: [{ priceId: PADDLE_CONFIG.products[plan], quantity: 1 }]
-        }).then(result => {
+        });
+        
+        // Add timeout to PricePreview
+        const timeoutPromise = new Promise((_, reject) => {
+          setTimeout(() => reject(new Error('PricePreview timeout after 10 seconds')), 10000);
+        });
+        
+        Promise.race([pricePreviewPromise, timeoutPromise]).then(result => {
           console.log('✅ PricePreview works - token is valid:', result);
           console.log('Price details:', result.data);
           console.log('Issue might be with checkout-specific permissions or price configuration');
