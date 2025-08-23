@@ -30,48 +30,160 @@
         <div><span class="highlight">Note:</span> If you already have a <b>Monthly</b> subscription, please <b>cancel it first</b> in the Customer Portal, then purchase the <b>Yearly</b> plan. Your current month access remains until the period end.</div>
         <div class="actions"><button class="btn btn-ghost" onclick="handleManageSubscription()">Open Customer Portal</button></div>
       </div>
-      <div class="pricing-grid-single">
-        <div class="card price">
-          <div class="price-header">Free</div>
-          <div class="price-value">$0</div>
-          <ul class="price-features">
-            <li>✅ Unlimited monthly usage</li>
-            <li>✅ Support for predefined check rules</li>
-            <li>✅ Support for local deployment models</li>
-            <li>✅ Support for report export</li>
-            <li>❌ Custom rules not supported</li>
-            <li>❌ Parallel tasks not supported</li>
-            <li>❌ Merge analysis not supported</li>
-            <li>❌ Review mode not supported</li>
-          </ul>
-          <button class="btn btn-ghost full" onclick="handleFreeStart()">Get Started Free</button>
+
+      <!-- New Plans Container Design -->
+      <div class="plans-container">
+        <!-- Free Plan -->
+        <div class="plan-card plan-free">
+          <div class="plan-header">
+            <div class="plan-name">Free</div>
+            <div class="plan-price">
+              <span class="price">$0</span>
+              <span class="period">/month</span>
+            </div>
+          </div>
+          
+          <div class="plan-features">
+            <div class="feature-item">
+              <span class="feature-icon">🚀</span>
+              <span class="feature-text">Unlimited monthly usage</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Support for predefined check rules</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Support for local deployment models</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Support for report export</span>
+            </div>
+            <div class="feature-item disabled">
+              <span class="feature-icon">❌</span>
+              <span class="feature-text">Custom rules not supported</span>
+            </div>
+            <div class="feature-item disabled">
+              <span class="feature-icon">❌</span>
+              <span class="feature-text">Parallel tasks not supported</span>
+            </div>
+            <div class="feature-item disabled">
+              <span class="feature-icon">❌</span>
+              <span class="feature-text">Merge analysis not supported</span>
+            </div>
+            <div class="feature-item disabled">
+              <span class="feature-icon">❌</span>
+              <span class="feature-text">Review mode not supported</span>
+            </div>
+          </div>
+          
+          <div class="plan-action">
+            <button class="btn-plan btn-plan-free" onclick="handleFreeStart()">Get Started Free</button>
+          </div>
         </div>
         
-        <div class="card price">
-          <div class="price-header">DeepReview Pro</div>
-          <div class="price-value">$5.99<span>/month</span></div>
-          <ul class="price-features">
-            <li>✅ All Free features</li>
-            <li>✅ Custom rules, parallel tasks, merge analysis, review mode</li>
-            <li>✅ Priority support</li>
-            <li>✅ Early access to new features</li>
-          </ul>
-          <button class="btn btn-primary full" onclick="handleUpgrade('monthly')">Subscribe Monthly</button>
-          <p class="pricing-note">Cancel anytime.</p>
+        <!-- Monthly Plan -->
+        <div class="plan-card plan-pro">
+          <div class="plan-header">
+            <div class="plan-name">Pro Monthly</div>
+            <div class="plan-price">
+              <span class="price">$5.99</span>
+              <span class="period">/month</span>
+            </div>
+          </div>
+          
+          <div class="plan-features">
+            <div class="feature-item">
+              <span class="feature-icon">🚀</span>
+              <span class="feature-text">Unlimited monthly usage</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Support for predefined check rules</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Support for local deployment models</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Support for report export</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Custom rules supported</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Parallel tasks supported</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Merge analysis supported</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Review mode supported</span>
+            </div>
+          </div>
+          
+          <div class="plan-action">
+            <button class="btn-plan btn-plan-pro" onclick="handleUpgrade('monthly')">Subscribe Monthly</button>
+            <p class="pricing-note">Cancel anytime</p>
+          </div>
         </div>
         
-        <div class="card price featured">
-          <div class="ribbon">Most Popular</div>
-          <div class="price-header">DeepReview Pro</div>
-          <div class="price-value">$59.90<span>/year</span></div>
-          <ul class="price-features">
-            <li>✅ All Free features</li>
-            <li>✅ Custom rules, parallel tasks, merge analysis, review mode</li>
-            <li>✅ Priority support</li>
-            <li>✅ Early access to new features</li>
-          </ul>
-          <button class="btn btn-primary full" onclick="handleUpgrade('yearly')" id="upgrade-btn">Subscribe Yearly</button>
-          <p class="pricing-note">Save over 15% compared to monthly.</p>
+        <!-- Yearly Plan -->
+        <div class="plan-card plan-pro plan-featured">
+          <div class="plan-badge">Most Popular</div>
+          <div class="plan-header">
+            <div class="plan-name">Pro Yearly</div>
+            <div class="plan-price">
+              <span class="price">$59.90</span>
+              <span class="period">/year</span>
+            </div>
+          </div>
+          
+          <div class="plan-features">
+            <div class="feature-item">
+              <span class="feature-icon">🚀</span>
+              <span class="feature-text">Unlimited monthly usage</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Support for predefined check rules</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Support for local deployment models</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Support for report export</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Custom rules supported</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Parallel tasks supported</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Merge analysis supported</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Review mode supported</span>
+            </div>
+          </div>
+          
+          <div class="plan-action">
+            <button class="btn-plan btn-plan-featured" onclick="handleUpgrade('yearly')" id="upgrade-btn">Subscribe Yearly</button>
+            <p class="pricing-note">Save over 15% compared to monthly</p>
+          </div>
         </div>
       </div>
 
@@ -426,26 +538,214 @@ Thank you for your patience!`;
   </script>
 
   <style>
-    .pricing-grid-single {
+    /* Plans Container Design - Based on review.html */
+    .plans-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      max-width: 800px;
-      margin: 0 auto;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin: 32px 0;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    .price-trial {
-      color: #059669;
+    .plan-card {
+      background: white;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+      position: relative;
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .plan-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    }
+
+    .plan-free {
+      border-color: #e5e7eb;
+    }
+
+    .plan-pro {
+      border-color: #8b5cf6;
+      background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+    }
+
+    .plan-featured {
+      border-color: #6aa1ff;
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      box-shadow: 0 8px 32px rgba(106, 161, 255, 0.2);
+    }
+
+    .plan-header {
+      text-align: center;
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .plan-badge {
+      position: absolute;
+      top: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #6aa1ff, #8b5cf6);
+      color: white;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .plan-name {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 8px;
+    }
+
+    .plan-price {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .price {
+      font-size: 36px;
+      font-weight: 800;
+      color: #8b5cf6;
+    }
+
+    .plan-featured .price {
+      color: #6aa1ff;
+    }
+
+    .period {
+      font-size: 16px;
+      color: #6b7280;
       font-weight: 500;
-      margin-bottom: 1rem;
-      font-size: 0.9rem;
+    }
+
+    .plan-features {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 6px 0;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .feature-item.disabled {
+      opacity: 0.5;
+    }
+
+    .feature-icon {
+      font-size: 18px;
+      min-width: 20px;
+    }
+
+    .feature-text {
+      color: #374151;
+      line-height: 1.4;
+    }
+
+    .feature-item.disabled .feature-text {
+      color: #9ca3af;
+    }
+
+    .plan-action {
+      margin-top: auto;
+      text-align: center;
+    }
+
+    .btn-plan {
+      width: 100%;
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 8px;
+    }
+
+    .btn-plan-free {
+      background: #f9fafb;
+      color: #374151;
+      border: 2px solid #e5e7eb;
+    }
+
+    .btn-plan-free:hover {
+      background: #f3f4f6;
+      border-color: #d1d5db;
+    }
+
+    .btn-plan-pro {
+      background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+      color: white;
+    }
+
+    .btn-plan-pro:hover {
+      background: linear-gradient(135deg, #7c3aed, #6d28d9);
+      transform: translateY(-2px);
+    }
+
+    .btn-plan-featured {
+      background: linear-gradient(135deg, #6aa1ff, #3b82f6);
+      color: white;
+    }
+
+    .btn-plan-featured:hover {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      transform: translateY(-2px);
     }
 
     .pricing-note {
-      font-size: 0.8rem;
+      font-size: 13px;
       color: #6b7280;
-      margin-top: 0.5rem;
-      text-align: center;
+      margin: 0;
+      font-weight: 500;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .plans-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        max-width: 400px;
+      }
+      
+      .plan-card {
+        min-height: auto;
+      }
+    }
+
+    @media (min-width: 768px) and (max-width: 1024px) {
+      .plans-container {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 800px;
+      }
+    }
+
+    /* Override existing pricing styles */
+    .pricing-grid-single {
+      display: none;
     }
 
     .pricing-faq {
