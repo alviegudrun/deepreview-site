@@ -347,28 +347,41 @@
     }
 
     function handleUpgrade(plan) {
+      console.log('🚀 handleUpgrade被调用，计划:', plan);
       const params = getUrlParams();
+      console.log('📋 获取到的参数:', params);
+      
       const userEmail = params.email || prompt('Please enter your email address:');
+      console.log('📧 最终使用的邮箱:', userEmail);
+      console.log('📧 邮箱类型:', typeof userEmail);
+      console.log('📧 邮箱长度:', userEmail ? userEmail.length : 'null');
+      
       const userName = params.userName || '';
       const userSub = params.userSub || '';
       const flowId = params.flowId || `web_${Date.now()}`;
       
       if (!userEmail) {
+        console.error('❌ 邮箱为空');
         alert('Email address is required to proceed with upgrade.');
         return;
       }
 
       if (!PADDLE_CONFIG.products[plan]) {
+        console.error('❌ 产品配置错误，计划:', plan);
         alert('Product configuration error. Please contact support.');
         return;
       }
 
       // Validate email format
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      console.log('🔍 邮箱格式验证:', emailRegex.test(userEmail));
       if (!emailRegex.test(userEmail)) {
+        console.error('❌ 邮箱格式无效:', userEmail);
         alert('Please enter a valid email address.');
         return;
       }
+      
+      console.log('✅ 邮箱验证通过，继续支付流程');
 
       showPaymentModal();
       updatePaymentStatus('Initializing payment...');
@@ -493,15 +506,12 @@ Thank you for your patience!`;
       alert(message);
     }
 
-    // Auto-trigger upgrade if parameters are present
+    // Handle extension redirect - log parameters but don't auto-trigger payment
     document.addEventListener('DOMContentLoaded', function() {
       const params = getUrlParams();
       if (params.plan && params.email) {
-        console.log('Auto-triggering upgrade with params:', params);
-        // Small delay to ensure Paddle is loaded
-        setTimeout(() => {
-          handleUpgrade(params.plan);
-        }, 1000);
+        console.log('✅ 来自插件的跳转，参数已接收:', params);
+        // 不自动触发支付，让用户自主选择
       }
     });
 
