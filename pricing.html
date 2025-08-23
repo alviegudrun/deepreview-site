@@ -1,78 +1,856 @@
-/* DeepReview website styles */
-:root{
-  --bg:#0b0f17;--panel:#121826;--muted:#8aa0b9;--line:#1d2433;--brand:#6aa1ff;--brand2:#8b5cf6;--text:#e6edf6;--white:#fff;--ok:#10b981;--warn:#f59e0b;--danger:#ef4444;
-}
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Noto Sans",Helvetica,Arial}
-a{color:var(--brand);text-decoration:none}
-a:hover{opacity:.9}
-.container{max-width:1080px;margin:0 auto;padding:0 20px}
-.center{text-align:center}
-.muted{color:var(--muted)}
-.note{color:var(--muted);font-size:.95rem}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pricing – DeepReview</title>
+  <link rel="icon" type="image/svg+xml" href="../icons/icon.svg">
+  <link rel="shortcut icon" href="../icons/icon.svg">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+</head>
+<body>
+  <header class="site-header plain">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">DeepReview</a>
+      <nav class="nav">
+        <a href="pricing.html" class="active">Pricing</a>
+        <a href="terms.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
+    </div>
+  </header>
 
-.site-header{position:sticky;top:0;z-index:20;background:var(--bg);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.site-header.plain{background:var(--bg)}
-.header-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
-.brand{font-weight:700;letter-spacing:.2px}
-.nav{display:flex;gap:18px;align-items:center}
-.nav .active{color:var(--white)}
+  <section class="section" style="padding-top: 32px;">
+    <div class="container">
+      <div class="alert" style="margin:0px 0 0">
+        <div><span class="highlight">Note:</span> If you already have a <b>Monthly</b> subscription, please <b>cancel it first</b> in the Customer Portal, then purchase the <b>Yearly</b> plan. Your current month access remains until the period end.</div>
+      </div>
 
-/* alerts */
-.alert{border:1px solid var(--line);background:rgba(245,158,11,.08);border-color:var(--warn);color:var(--text);padding:12px 16px;border-radius:10px}
-.alert .highlight{color:var(--warn);font-weight:700}
-.alert .actions{margin-top:8px}
+      <!-- New Plans Container Design -->
+      <div class="plans-container">
+        <!-- Free Plan -->
+        <div class="plan-card plan-free">
+          <div class="plan-header">
+            <div class="plan-name">Free</div>
+            <div class="plan-price">
+              <span class="price">$0</span>
+              <span class="period">/month</span>
+            </div>
+          </div>
+          
+                     <div class="plan-features">
+             <div class="feature-item">
+               <span class="feature-icon">🚀</span>
+               <span class="feature-text">Unlimited monthly usage</span>
+             </div>
+             <div class="feature-item">
+               <span class="feature-icon">✅</span>
+               <span class="feature-text">Support predefined check rules</span>
+             </div>
+             <div class="feature-item">
+               <span class="feature-icon">✅</span>
+               <span class="feature-text">Support local deployment models</span>
+             </div>
+             <div class="feature-item">
+               <span class="feature-icon">✅</span>
+               <span class="feature-text">Support report export</span>
+             </div>
+             <div class="feature-item disabled">
+               <span class="feature-icon">❌</span>
+               <span class="feature-text">Custom rules not supported</span>
+             </div>
+             <div class="feature-item disabled">
+               <span class="feature-icon">❌</span>
+               <span class="feature-text">Parallel tasks not supported</span>
+             </div>
+             <div class="feature-item disabled">
+               <span class="feature-icon">❌</span>
+               <span class="feature-text">Merge analysis not supported</span>
+             </div>
+             <div class="feature-item disabled">
+               <span class="feature-icon">❌</span>
+               <span class="feature-text">Review mode not supported</span>
+             </div>
+           </div>
+          
+          <div class="plan-action">
+            <button class="btn-plan btn-plan-free" onclick="handleFreeStart()">Get Started Free</button>
+          </div>
+        </div>
+        
+        <!-- Monthly Plan -->
+        <div class="plan-card plan-pro">
+          <div class="plan-header">
+            <div class="plan-name">Pro Monthly</div>
+            <div class="plan-price">
+              <span class="price">$5.99</span>
+              <span class="period">/month</span>
+            </div>
+          </div>
+          
+          <div class="plan-features">
+            <div class="feature-item">
+              <span class="feature-icon">🚀</span>
+              <span class="feature-text">Unlimited monthly usage</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Support predefined check rules</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Support local deployment models</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Support report export</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Custom rules supported</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Parallel tasks supported</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Merge analysis supported</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Review mode supported</span>
+            </div>
+          </div>
+          
+          <div class="plan-action">
+            <button class="btn-plan btn-plan-pro" onclick="handleUpgrade('monthly')">Subscribe Monthly</button>
+          </div>
+        </div>
+        
+        <!-- Yearly Plan -->
+        <div class="plan-card plan-pro plan-featured">
+          <div class="plan-badge">Most Popular</div>
+          <div class="plan-header">
+            <div class="plan-name">Pro Yearly</div>
+            <div class="plan-price">
+              <span class="price">$59.9</span>
+              <span class="period">/year</span>
+            </div>
+          </div>
+          
+          <div class="plan-features">
+            <div class="feature-item">
+              <span class="feature-icon">🚀</span>
+              <span class="feature-text">Unlimited monthly usage</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Support predefined check rules</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Support local deployment models</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Support report export</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Custom rules supported</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Parallel tasks supported</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Merge analysis supported</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✅</span>
+              <span class="feature-text">Review mode supported</span>
+            </div>
+          </div>
+          
+          <div class="plan-action">
+            <button class="btn-plan btn-plan-featured" onclick="handleUpgrade('yearly')" id="upgrade-btn">Subscribe Yearly</button>
+          </div>
+        </div>
+      </div>
 
-.btn{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 16px;border-radius:10px;border:1px solid var(--line);color:var(--text);background:transparent;transition:.15s}
-.btn:hover{transform:translateY(-1px)}
-.btn-primary{background:linear-gradient(135deg,var(--brand),var(--brand2));border:0;color:#fff}
-.btn-ghost{background:transparent;border-color:var(--line)}
-.btn-lg{height:48px;padding:0 20px;border-radius:12px}
-.btn.full{width:100%}
+      <div class="center" style="margin:20px 0 8px">
+        <button class="btn btn-ghost btn-lg manage-cancel-btn" onclick="handleManageSubscription()">Manage / Cancel plan</button>
+        <div class="note" style="margin-top: 16px;">Stops auto-renew at period end. Current period access is unaffected.</div>
+      </div>
 
-.hero{padding:72px 0;background:radial-gradient(1000px 400px at 20% -10%,rgba(106,161,255,.25),transparent),radial-gradient(800px 400px at 100% 0,rgba(139,92,246,.18),transparent)}
-.hero-inner{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center}
-.hero-copy h1{margin:0 0 12px;font-size:40px;line-height:1.2}
-.lead{font-size:18px;color:var(--muted)}
-.hero-cta{display:flex;gap:12px;margin-top:20px}
-.code-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.25)}
-.code-header{height:36px;background:linear-gradient(135deg,#1b2232,#0f1421);border-bottom:1px solid var(--line)}
-.code-card pre{margin:0;padding:14px 16px;overflow:auto;color:#cbd5e1}
+      <div class="pricing-faq">
+        <h3>Frequently Asked Questions</h3>
+        <details>
+          <summary>Can I cancel anytime?</summary>
+          <p>Yes, you can cancel your subscription at any time. Your access continues until the end of your billing period.</p>
+        </details>
+        <details>
+          <summary>What are custom rules?</summary>
+          <p>Create your own code review rules tailored to your team's specific standards and requirements.</p>
+        </details>
+        <details>
+          <summary>How does parallel processing work?</summary>
+          <p>Process multiple files simultaneously for faster review times, especially beneficial for large codebases.</p>
+        </details>
+        <details>
+          <summary>What is merge analysis?</summary>
+          <p>Analyze related files as a whole to validate overall logic and cross-file dependencies.</p>
+        </details>
+      </div>
 
-.section{padding:64px 0}
-.section-title{margin:0 0 24px;text-align:center;font-size:28px}
-.grid{display:grid;gap:18px}
-.grid-3{grid-template-columns:repeat(3,1fr)}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}
-.card h3{margin-top:4px}
+      <div class="note center">
+        We highly value all user experiences, and all basic features are open to the free version.<br>
+        For teams or enterprise licenses, contact us: <a href="mailto:support@deepreview.cloud">support@deepreview.cloud</a><br>
+        Thank you for your support! 🙏
+      </div>
+    </div>
+  </section>
 
-.cta{padding:56px 0;background:linear-gradient(180deg,rgba(106,161,255,.08),transparent)}
-.cta-inner{text-align:center}
+  <!-- Payment Processing Modal -->
+  <div id="payment-modal" class="payment-modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Processing Payment...</h3>
+        <button class="modal-close" onclick="closePaymentModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="payment-status">
+          <div class="spinner"></div>
+          <p id="payment-status-text">Initializing payment...</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-.site-footer{border-top:1px solid var(--line);padding:20px 0;background:#0a0f19}
-.footer-inner{display:flex;align-items:center;justify-content:space-between}
-.footer-nav{display:flex;gap:16px}
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div><strong>DeepReview</strong></div>
+      <nav class="footer-nav">
+        <a href="terms.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="refund.html">Refund</a>
+      </nav>
+    </div>
+  </footer>
 
-/* pricing */
-.pricing-grid-single{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:20px}
-.pricing-grid .price{position:relative}
-.price{display:flex;flex-direction:column;justify-content:space-between}
-.price .price-header{font-weight:700;margin-bottom:6px}
-.price .price-value{font-size:32px;margin:8px 0}
-.price .price-value span{font-size:14px;color:var(--muted)}
-.price .price-features{list-style:none;margin:12px 0 18px;padding:0;color:var(--muted)}
-.price .price-features li{margin:6px 0}
-.price.featured{outline:2px solid rgba(106,161,255,.35);box-shadow:0 10px 30px rgba(106,161,255,.15)}
-.price .ribbon{position:absolute;top:-10px;right:-10px;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;padding:4px 10px;border-radius:999px;font-size:12px}
-@media (max-width:900px){.pricing-grid-single{grid-template-columns:1fr}}
+  <script>
+    // Environment toggle: set to 'sandbox' or 'live' (or via ?env=live)
+    const DR_ENV = (new URLSearchParams(location.search).get('env')) || 'sandbox';
 
-/* legal pages */
-.legal{padding:32px 20px 64px}
-.legal h1{margin-top:0}
-.legal h2{margin-top:28px}
+    // Centralized Paddle environment configuration
+    const ENV_CONFIG = {
+      sandbox: {
+        token: 'test_4b05d1a77a742bd77ffa74e3c30',
+        products: {
+          yearly: 'pri_01k3a39jpkydhhwra9ne1s797m',
+          monthly: 'pri_01k3a38rw99kgp3g64n2accx14'
+        },
+        paddleEnv: 'sandbox'
+      },
+      live: {
+        token: 'live_9ecb2f70961454470867728f006',
+        products: {
+          yearly: 'pri_01k39w7nmf4vd3rn1byb6p8ny6',
+          monthly: 'pri_01k39wh6ex2ddg4bt2v5vh53ym'
+        },
+        paddleEnv: 'production'
+      }
+    };
+    const ACTIVE = ENV_CONFIG[DR_ENV] || ENV_CONFIG.sandbox;
 
-/* responsive */
-@media (max-width:900px){
-  .hero-inner{grid-template-columns:1fr}
-  .grid-3{grid-template-columns:1fr}
-} 
+    // Paddle configuration (resolved from ACTIVE)
+    const PADDLE_CONFIG = {
+      vendorId: '42232',
+      environment: DR_ENV,
+      products: ACTIVE.products
+    };
+    
+    // Debug: Log the exact Price IDs we're using
+    console.log('Price IDs configured:', PADDLE_CONFIG.products);
+    
+    // Global token definition (resolved from ACTIVE)
+    const PADDLE_CLIENT_TOKEN = ACTIVE.token;
+
+    // Initialize Paddle (token-based)
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof Paddle !== 'undefined') {
+        const env = PADDLE_CLIENT_TOKEN.startsWith('live_') ? 'production' : 'sandbox';
+        try {
+          // Ensure environment per docs
+          if (ACTIVE.paddleEnv && Paddle.Environment && typeof Paddle.Environment.set === 'function') {
+            Paddle.Environment.set(ACTIVE.paddleEnv);
+          }
+          const paramsForInit = getUrlParams ? getUrlParams() : {};
+          const pw = (DR_ENV === 'live' && paramsForInit && paramsForInit.email) ? { email: paramsForInit.email } : undefined;
+          const initOptions = pw ? { token: PADDLE_CLIENT_TOKEN, pwCustomer: pw } : { token: PADDLE_CLIENT_TOKEN };
+          Paddle.Initialize(initOptions);
+          console.log('Paddle initialized with token, env:', env);
+          
+          // Add event listeners for debugging
+          if (Paddle.Events && typeof Paddle.Events.on === 'function') {
+            Paddle.Events.on('checkout.loaded', function(e) { 
+              console.log('🎉 Paddle checkout loaded:', e); 
+            });
+            Paddle.Events.on('checkout.completed', function(e) { 
+              console.log('✅ Paddle checkout completed:', e); 
+            });
+            Paddle.Events.on('checkout.closed', function(e) { 
+              console.log('❌ Paddle checkout closed:', e); 
+            });
+            console.log('Event listeners added');
+          } else {
+            console.log('Paddle.Events not available or different API');
+          }
+        } catch (e) {
+          console.error('Paddle Initialize failed:', e);
+        }
+      } else {
+        console.error('Paddle.js not loaded');
+      }
+    });
+
+    function getUrlParams() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return {
+        email: urlParams.get('email'),
+        plan: urlParams.get('plan'),
+        flowId: urlParams.get('flowId'),
+        userName: urlParams.get('userName') || '',
+        userSub: urlParams.get('userSub') || ''
+      };
+    }
+
+    function handleFreeStart() {
+      // Redirect to Chrome Web Store or direct download
+      alert('Please install the DeepReview extension from the Chrome Web Store to get started.');
+    }
+
+    // Open Paddle Customer Portal for self-serve cancel/management
+    function handleManageSubscription() {
+      // You can maintain separate portals for sandbox/live if desired
+      const portal = DR_ENV === 'live'
+        ? 'https://customer-portal.paddle.com/cpl_01k2pvmfqhyaqtxmfcr99nhvw0'
+        : 'https://sandbox-customer-portal.paddle.com/cpl_01k3a321v5f11mvch9z8901v9d';
+      try {
+        window.open(portal, '_blank', 'noopener');
+      } catch (_) {
+        location.href = portal;
+      }
+    }
+
+    function handleUpgrade(plan) {
+      const params = getUrlParams();
+      const userEmail = params.email || prompt('Please enter your email address:');
+      const userName = params.userName || '';
+      const userSub = params.userSub || '';
+      const flowId = params.flowId || `web_${Date.now()}`;
+      
+      if (!userEmail) {
+        alert('Email address is required to proceed with upgrade.');
+        return;
+      }
+
+      if (!PADDLE_CONFIG.products[plan]) {
+        alert('Product configuration error. Please contact support.');
+        return;
+      }
+
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(userEmail)) {
+        alert('Please enter a valid email address.');
+        return;
+      }
+
+      showPaymentModal();
+      updatePaymentStatus('Initializing payment...');
+
+      console.log('Starting payment flow:', {
+        plan,
+        userEmail,
+        userName,
+        flowId,
+        productId: PADDLE_CONFIG.products[plan]
+      });
+
+      // Configure Paddle checkout
+      Paddle.Checkout.open({
+        items: [{ priceId: PADDLE_CONFIG.products[plan], quantity: 1 }],
+        customer: { email: userEmail },
+        settings: {
+          displayMode: 'overlay',
+          theme: 'light',
+          allowLogout: false,
+          locale: 'en'
+        },
+        
+        // Custom data for webhook processing
+        customData: {
+          user_email: userEmail,
+          ...(userName && { user_name: userName }),
+          ...(userSub && { user_sub: userSub }),
+          plan: plan,
+          source: 'extension',
+          flow_id: flowId,
+          extension_version: '1.1.2',
+          timestamp: new Date().toISOString()
+        }
+      });
+
+      // Start monitoring the overlay so our spinner is hidden at the right time
+      monitorCheckoutOverlay();
+      
+      console.log('✅ Paddle checkout opened successfully');
+    }
+
+    function showPaymentModal() {
+      document.getElementById('payment-modal').classList.remove('hidden');
+    }
+
+    function closePaymentModal() {
+      document.getElementById('payment-modal').classList.add('hidden');
+    }
+
+    function updatePaymentStatus(message) {
+      document.getElementById('payment-status-text').textContent = message;
+    }
+
+    // Hide our processing modal when Paddle overlay appears or is closed
+    function monitorCheckoutOverlay() {
+      // Poll briefly for the overlay iframe to show, then hide our spinner
+      const start = Date.now();
+      const maxWaitMs = 8000;
+      const interval = setInterval(() => {
+        const overlay = document.querySelector('iframe[src*="paddle"]');
+        const isHidden = document.querySelector('#payment-modal.hidden');
+        if (overlay && !isHidden) {
+          closePaymentModal();
+          clearInterval(interval);
+          return;
+        }
+        if (Date.now() - start > maxWaitMs) {
+          clearInterval(interval);
+        }
+      }, 300);
+
+      // Best effort: if Paddle provides Events, also close on checkout.closed
+      if (window.Paddle && Paddle.Events && typeof Paddle.Events.on === 'function') {
+        try {
+          Paddle.Events.on('checkout.closed', function(){ closePaymentModal(); });
+          Paddle.Events.on('checkout.loaded', function(){ closePaymentModal(); });
+        } catch(_){}
+      }
+    }
+
+    function handlePaymentSuccess(data) {
+      updatePaymentStatus('Subscription activated successfully!');
+      
+      setTimeout(() => {
+        closePaymentModal();
+        
+        // Show success message
+        const message = `🎉 Welcome to DeepReview Pro!
+
+Your subscription is now active. You can:
+• Close this page and return to the extension
+• The extension will automatically detect your Pro status
+• Enjoy unlimited features!
+
+Thank you for your support! 🙏`;
+        
+        alert(message);
+        
+        // Try to close window or redirect
+        if (window.opener) {
+          window.close();
+        } else {
+          // Redirect to success page
+          window.location.href = 'index.html?success=true';
+        }
+      }, 3000);
+    }
+
+    function showProcessingNotice() {
+      const message = `Payment Processing Notice
+
+Your payment may still be processing. 
+
+What to do next:
+• Return to the extension and wait a few minutes
+• The extension will automatically detect your subscription status
+• If you don't see Pro features after 10 minutes, please contact support
+
+Thank you for your patience!`;
+      
+      alert(message);
+    }
+
+    // Auto-trigger upgrade if parameters are present
+    document.addEventListener('DOMContentLoaded', function() {
+      const params = getUrlParams();
+      if (params.plan && params.email) {
+        console.log('Auto-triggering upgrade with params:', params);
+        // Small delay to ensure Paddle is loaded
+        setTimeout(() => {
+          handleUpgrade(params.plan);
+        }, 1000);
+      }
+    });
+
+    // Handle success redirect from index page
+    if (window.location.search.includes('success=true')) {
+      document.addEventListener('DOMContentLoaded', function() {
+        const successBanner = document.createElement('div');
+        successBanner.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          background: #10b981;
+          color: white;
+          text-align: center;
+          padding: 1rem;
+          z-index: 1000;
+          font-weight: 500;
+        `;
+        successBanner.textContent = '🎉 Payment successful! Your DeepReview Pro subscription is now active.';
+        document.body.appendChild(successBanner);
+        
+        setTimeout(() => {
+          successBanner.remove();
+        }, 10000);
+      });
+    }
+  </script>
+
+  <style>
+    /* Plans Container Design - Based on review.html */
+    .plans-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin: 32px 0;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .plan-card {
+      background: white;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+      position: relative;
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .plan-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    }
+
+    .plan-free {
+      border-color: #e1e7f5;
+      background: linear-gradient(135deg, #f8faff 0%, #f1f5ff 100%);
+    }
+
+    .plan-pro {
+      border-color: #7c3aed;
+      background: linear-gradient(135deg, #f3f0ff 0%, #ede9fe 100%);
+    }
+
+    .plan-featured {
+      border-color: #3b82f6;
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      box-shadow: 0 8px 32px rgba(59, 130, 246, 0.2);
+    }
+
+    .plan-header {
+      text-align: center;
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .plan-badge {
+      position: absolute;
+      top: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #3b82f6, #7c3aed);
+      color: white;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .plan-name {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 8px;
+    }
+
+    .plan-price {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .price {
+      font-size: 36px;
+      font-weight: 800;
+      color: #7c3aed;
+    }
+
+    .plan-featured .price {
+      color: #3b82f6;
+    }
+
+    .period {
+      font-size: 16px;
+      color: #6b7280;
+      font-weight: 500;
+    }
+
+    .plan-features {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 24px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 3px 0;
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .feature-item.disabled {
+      opacity: 0.5;
+    }
+
+    .feature-icon {
+      font-size: 18px;
+      min-width: 20px;
+    }
+
+    .feature-text {
+      color: #374151;
+      line-height: 1.4;
+    }
+
+    .feature-item.disabled .feature-text {
+      color: #9ca3af;
+    }
+
+    .plan-action {
+      margin-top: auto;
+      text-align: center;
+    }
+
+    .btn-plan {
+      width: 100%;
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 8px;
+    }
+
+    .btn-plan-free {
+      background: #f9fafb;
+      color: #374151;
+      border: 2px solid #e5e7eb;
+    }
+
+    .btn-plan-free:hover {
+      background: #f3f4f6;
+      border-color: #d1d5db;
+    }
+
+    .btn-plan-pro {
+      background: linear-gradient(135deg, #7c3aed, #6d28d9);
+      color: white;
+    }
+
+    .btn-plan-pro:hover {
+      background: linear-gradient(135deg, #6d28d9, #5b21b6);
+      transform: translateY(-2px);
+    }
+
+    .btn-plan-featured {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: white;
+    }
+
+    .btn-plan-featured:hover {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      transform: translateY(-2px);
+    }
+
+    .pricing-note {
+      font-size: 13px;
+      color: #6b7280;
+      margin: 0;
+      font-weight: 500;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .plans-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        max-width: 400px;
+      }
+      
+      .plan-card {
+        min-height: auto;
+      }
+    }
+
+    @media (min-width: 768px) and (max-width: 1024px) {
+      .plans-container {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 800px;
+      }
+    }
+
+    /* Manage/Cancel button styling */
+    .manage-cancel-btn {
+      background: linear-gradient(135deg, #6b7280, #4b5563) !important;
+      color: white !important;
+      border: 1px solid #374151 !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .manage-cancel-btn:hover {
+      background: linear-gradient(135deg, #4b5563, #374151) !important;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Override existing pricing styles */
+    .pricing-grid-single {
+      display: none;
+    }
+
+    .pricing-faq {
+      margin-top: 3rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .pricing-faq h3 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .pricing-faq details {
+      margin-bottom: 1rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.5rem;
+      padding: 1rem;
+    }
+
+    .pricing-faq summary {
+      font-weight: 500;
+      cursor: pointer;
+      margin-bottom: 0.5rem;
+    }
+
+    .pricing-faq details[open] summary {
+      margin-bottom: 1rem;
+    }
+
+    .payment-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .payment-modal.hidden {
+      display: none;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 0.5rem;
+      max-width: 400px;
+      width: 90%;
+      overflow: hidden;
+    }
+
+    .modal-header {
+      padding: 1rem;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      padding: 2rem;
+    }
+
+    .payment-status {
+      text-align: center;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #f3f4f6;
+      border-top: 4px solid #3b82f6;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</body>
+</html> 
