@@ -128,22 +128,29 @@
     const PADDLE_CONFIG = {
       vendorId: 'YOUR_PADDLE_VENDOR_ID', // Replace with actual vendor ID
       environment: 'sandbox', // Change to 'production' for live
-      products: {
-        yearly: 'pri_01k39w7nmf4vd3rn1byb6p8ny6',
-        monthly: 'pri_01k39wh6ex2ddg4bt2v5vh53ym'
+              products: {
+        yearly: 'pri_01k3a39jpkydhhwra9ne1s797m',
+        monthly: 'pri_01k3a38rw99kgp3g64n2accx14'
       }
     };
 
-    // Initialize Paddle
+    // Initialize Paddle (token-based)
     document.addEventListener('DOMContentLoaded', function() {
       if (typeof Paddle !== 'undefined') {
-        Paddle.Setup({ 
-          vendor: PADDLE_CONFIG.vendorId,
-          eventCallback: function(data) {
-            console.log('Paddle event:', data);
-          }
-        });
-        console.log('Paddle initialized with vendor:', PADDLE_CONFIG.vendorId);
+        const PADDLE_CLIENT_TOKEN = 'test_8f0ee8dec134c91975587876c5d';
+        const env = PADDLE_CLIENT_TOKEN.startsWith('live_') ? 'production' : 'sandbox';
+        try {
+          Paddle.Initialize({
+            token: PADDLE_CLIENT_TOKEN,
+            environment: env
+          });
+          Paddle.Environment.set(env);
+          Paddle.Events.on('checkout.loaded', function(e){ console.log('Paddle checkout loaded', e); });
+          Paddle.Events.on('checkout.completed', function(e){ console.log('Paddle checkout completed', e); });
+          console.log('Paddle initialized with token, env:', env);
+        } catch (e) {
+          console.error('Paddle Initialize failed:', e);
+        }
       } else {
         console.error('Paddle.js not loaded');
       }
