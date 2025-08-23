@@ -135,11 +135,13 @@
         monthly: 'pri_01k3a38rw99kgp3g64n2accx14'
       }
     };
+    
+    // Global token definition
+    const PADDLE_CLIENT_TOKEN = 'test_a51b76865f253675ea5f91df48c';
 
     // Initialize Paddle (token-based)
     document.addEventListener('DOMContentLoaded', function() {
       if (typeof Paddle !== 'undefined') {
-        const PADDLE_CLIENT_TOKEN = 'test_a51b76865f253675ea5f91df48c';
         const env = PADDLE_CLIENT_TOKEN.startsWith('live_') ? 'production' : 'sandbox';
         try {
           Paddle.Initialize({
@@ -268,9 +270,33 @@
           items: [{ priceId: PADDLE_CONFIG.products[plan], quantity: 1 }]
         }).then(result => {
           console.log('✅ PricePreview works - token is valid:', result);
+          console.log('Price details:', result.data);
           console.log('Issue might be with checkout-specific permissions or price configuration');
+          
+          // If PricePreview works, try checkout again with more debugging
+          console.log('=== Retry checkout with customer email ===');
+          Paddle.Checkout.open({
+            items: [{ priceId: PADDLE_CONFIG.products[plan], quantity: 1 }],
+            customer: { email: userEmail }
+          });
+          
         }).catch(previewError => {
           console.error('❌ PricePreview failed - token or price issue:', previewError);
+          console.log('Error details:', previewError);
+          
+          // Check if it's a price ID issue
+          if (previewError.message && previewError.message.includes('price')) {
+            console.log('🔍 Price ID issue detected. Checking both price IDs...');
+            
+            // Test yearly price ID
+            Paddle.PricePreview({
+              items: [{ priceId: PADDLE_CONFIG.products.yearly, quantity: 1 }]
+            }).then(yearlyResult => {
+              console.log('✅ Yearly price ID works:', yearlyResult);
+            }).catch(yearlyError => {
+              console.error('❌ Yearly price ID also fails:', yearlyError);
+            });
+          }
         });
       }
     }
