@@ -52,6 +52,13 @@
             <li>✅ Early access to new features</li>
           </ul>
           <button class="btn btn-primary full" onclick="handleUpgrade('monthly')">Subscribe Monthly</button>
+          <button class="btn btn-secondary" style="margin-top: 10px; font-size: 12px;" 
+                  data-paddle-items='[{"priceId": "pri_01k3a38rw99kgp3g64n2accx14", "quantity": 1}]'
+                  data-paddle-customer-email="pan.zhou.2325@gmail.com"
+                  data-paddle-display-mode="overlay"
+                  data-paddle-theme="light">
+            🔧 Test HTML Attributes
+          </button>
           <p class="pricing-note">Cancel anytime.</p>
         </div>
         
@@ -223,7 +230,17 @@
 
       // Debug: Check Paddle object and status
       console.log('Paddle object:', Paddle);
-      console.log('Paddle Status:', Paddle.Status ? Paddle.Status.get() : 'Status not available');
+      console.log('Paddle Status object:', Paddle.Status);
+      console.log('Paddle Status methods:', Paddle.Status ? Object.keys(Paddle.Status) : 'Status not available');
+      
+      // Try different ways to get status
+      if (Paddle.Status) {
+        if (typeof Paddle.Status.get === 'function') {
+          console.log('Paddle Status via get():', Paddle.Status.get());
+        } else if (typeof Paddle.Status === 'object') {
+          console.log('Paddle Status object content:', Paddle.Status);
+        }
+      }
       
       // Test 1: Most minimal checkout
       console.log('=== Test 1: Minimal checkout ===');
@@ -276,7 +293,20 @@
             console.log('Paddle methods available:', Object.keys(Paddle));
             if (Paddle.Checkout) {
               console.log('Paddle.Checkout methods:', Object.keys(Paddle.Checkout));
+              console.log('Paddle.Checkout.open type:', typeof Paddle.Checkout.open);
             }
+            
+            // Test 6: Try to understand the 403 error better
+            console.log('=== Test 6: Network debugging ===');
+            console.log('Current domain:', window.location.hostname);
+            console.log('Current protocol:', window.location.protocol);
+            console.log('Token starts with:', PADDLE_CLIENT_TOKEN.substring(0, 10) + '...');
+            
+            // Test 7: Try a completely different approach - HTML data attributes
+            console.log('=== Test 7: Alternative approach ===');
+            console.log('Consider using HTML data attributes or different initialization');
+            
+            alert('All checkout attempts failed. Check console for detailed logs. This might be a token/domain/configuration issue.');
           }
         }
       }
