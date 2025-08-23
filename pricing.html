@@ -146,6 +146,22 @@
             token: PADDLE_CLIENT_TOKEN
           });
           console.log('Paddle initialized with token, env:', env);
+          
+          // Add event listeners for debugging
+          if (Paddle.Events && typeof Paddle.Events.on === 'function') {
+            Paddle.Events.on('checkout.loaded', function(e) { 
+              console.log('🎉 Paddle checkout loaded:', e); 
+            });
+            Paddle.Events.on('checkout.completed', function(e) { 
+              console.log('✅ Paddle checkout completed:', e); 
+            });
+            Paddle.Events.on('checkout.closed', function(e) { 
+              console.log('❌ Paddle checkout closed:', e); 
+            });
+            console.log('Event listeners added');
+          } else {
+            console.log('Paddle.Events not available or different API');
+          }
         } catch (e) {
           console.error('Paddle Initialize failed:', e);
         }
@@ -205,15 +221,65 @@
         productId: PADDLE_CONFIG.products[plan]
       });
 
-      // Configure Paddle checkout (Catalog 2.0) - Simplified version for testing
-      Paddle.Checkout.open({
-        items: [{ priceId: PADDLE_CONFIG.products[plan], quantity: 1 }],
-        customer: { email: userEmail },
-        settings: {
-          displayMode: 'overlay',
-          theme: 'light'
+      // Debug: Check Paddle object and status
+      console.log('Paddle object:', Paddle);
+      console.log('Paddle Status:', Paddle.Status ? Paddle.Status.get() : 'Status not available');
+      
+      // Test 1: Most minimal checkout
+      console.log('=== Test 1: Minimal checkout ===');
+      try {
+        const checkoutConfig = {
+          items: [{ priceId: PADDLE_CONFIG.products[plan], quantity: 1 }]
+        };
+        console.log('Checkout config:', checkoutConfig);
+        
+        Paddle.Checkout.open(checkoutConfig);
+        console.log('✅ Minimal checkout call succeeded');
+      } catch (error) {
+        console.error('❌ Minimal checkout failed:', error);
+        
+        // Test 2: Try with customer email
+        console.log('=== Test 2: With customer email ===');
+        try {
+          const checkoutConfig2 = {
+            items: [{ priceId: PADDLE_CONFIG.products[plan], quantity: 1 }],
+            customer: { email: userEmail }
+          };
+          console.log('Checkout config 2:', checkoutConfig2);
+          
+          Paddle.Checkout.open(checkoutConfig2);
+          console.log('✅ Checkout with email succeeded');
+        } catch (error2) {
+          console.error('❌ Checkout with email failed:', error2);
+          
+          // Test 3: Try with different price ID format
+          console.log('=== Test 3: Debug price ID ===');
+          console.log('Price ID type:', typeof PADDLE_CONFIG.products[plan]);
+          console.log('Price ID value:', PADDLE_CONFIG.products[plan]);
+          console.log('Price ID length:', PADDLE_CONFIG.products[plan].length);
+          
+          // Test 4: Try hardcoded price ID
+          console.log('=== Test 4: Hardcoded price ID ===');
+          try {
+            const checkoutConfig3 = {
+              items: [{ priceId: 'pri_01k3a38rw99kgp3g64n2accx14', quantity: 1 }]
+            };
+            console.log('Checkout config 3:', checkoutConfig3);
+            
+            Paddle.Checkout.open(checkoutConfig3);
+            console.log('✅ Hardcoded price ID succeeded');
+          } catch (error3) {
+            console.error('❌ Hardcoded price ID failed:', error3);
+            
+            // Test 5: Check if Paddle is properly initialized
+            console.log('=== Test 5: Paddle initialization check ===');
+            console.log('Paddle methods available:', Object.keys(Paddle));
+            if (Paddle.Checkout) {
+              console.log('Paddle.Checkout methods:', Object.keys(Paddle.Checkout));
+            }
+          }
         }
-      });
+      }
     }
 
     function showPaymentModal() {
