@@ -143,8 +143,6 @@
           Paddle.Initialize({
             token: PADDLE_CLIENT_TOKEN
           });
-          Paddle.Events.on('checkout.loaded', function(e){ console.log('Paddle checkout loaded', e); });
-          Paddle.Events.on('checkout.completed', function(e){ console.log('Paddle checkout completed', e); });
           console.log('Paddle initialized with token, env:', env);
         } catch (e) {
           console.error('Paddle Initialize failed:', e);
