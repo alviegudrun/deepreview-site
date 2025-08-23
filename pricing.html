@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pricing – DeepReview</title>
+  <link rel="icon" type="image/svg+xml" href="../icons/icon.svg">
+  <link rel="shortcut icon" href="../icons/icon.svg">
   <link rel="stylesheet" href="assets/style.css">
   <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
 </head>
@@ -137,7 +139,7 @@
     // Initialize Paddle (token-based)
     document.addEventListener('DOMContentLoaded', function() {
       if (typeof Paddle !== 'undefined') {
-        const PADDLE_CLIENT_TOKEN = 'test_8f0ee8dec134c91975587876c5d';
+        const PADDLE_CLIENT_TOKEN = 'test_a51b76865f253675ea5f91df48c';
         const env = PADDLE_CLIENT_TOKEN.startsWith('live_') ? 'production' : 'sandbox';
         try {
           Paddle.Initialize({
