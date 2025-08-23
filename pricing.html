@@ -25,6 +25,11 @@
     <div class="container">
       <h1 class="section-title">Simple, transparent pricing</h1>
       <p class="muted center">Subscribe securely via Paddle. Taxes may apply in your region.</p>
+
+      <div class="alert" style="margin:14px 0 0">
+        <div><span class="highlight">Note:</span> If you already have a <b>Monthly</b> subscription, please <b>cancel it first</b> in the Customer Portal, then purchase the <b>Yearly</b> plan. Your current month access remains until the period end.</div>
+        <div class="actions"><button class="btn btn-ghost" onclick="handleManageSubscription()">Open Customer Portal</button></div>
+      </div>
       <div class="pricing-grid-single">
         <div class="card price">
           <div class="price-header">Free</div>
@@ -68,6 +73,11 @@
           <button class="btn btn-primary full" onclick="handleUpgrade('yearly')" id="upgrade-btn">Subscribe Yearly</button>
           <p class="pricing-note">Save over 15% compared to monthly.</p>
         </div>
+      </div>
+
+      <div class="center" style="margin:20px 0 8px">
+        <button class="btn btn-ghost btn-lg" onclick="handleManageSubscription()">Manage / Cancel plan</button>
+        <div class="note">Stops auto-renew at period end. Current period access is unaffected.</div>
       </div>
 
       <div class="pricing-faq">
@@ -126,30 +136,51 @@
   </footer>
 
   <script>
-    // Paddle configuration
-    const PADDLE_CONFIG = {
-      vendorId: '42232', // Your Paddle Seller/Vendor ID
-      environment: 'sandbox', // Change to 'production' for live
-              products: {
-        yearly: 'pri_01k3a39jpkydhhwra9ne1s797m',
-        monthly: 'pri_01k3a38rw99kgp3g64n2accx14'
+    // Environment toggle: set to 'sandbox' or 'live' (or via ?env=live)
+    const DR_ENV = (new URLSearchParams(location.search).get('env')) || 'sandbox';
+
+    // Centralized Paddle environment configuration
+    const ENV_CONFIG = {
+      sandbox: {
+        token: 'test_4b05d1a77a742bd77ffa74e3c30',
+        products: {
+          yearly: 'pri_01k3a39jpkydhhwra9ne1s797m',
+          monthly: 'pri_01k3a38rw99kgp3g64n2accx14'
+        },
+        paddleEnv: 'sandbox'
+      },
+      live: {
+        token: 'live_9ecb2f70961454470867728f006',
+        products: {
+          yearly: 'pri_01k39w7nmf4vd3rn1byb6p8ny6',
+          monthly: 'pri_01k39wh6ex2ddg4bt2v5vh53ym'
+        },
+        paddleEnv: 'production'
       }
+    };
+    const ACTIVE = ENV_CONFIG[DR_ENV] || ENV_CONFIG.sandbox;
+
+    // Paddle configuration (resolved from ACTIVE)
+    const PADDLE_CONFIG = {
+      vendorId: '42232',
+      environment: DR_ENV,
+      products: ACTIVE.products
     };
     
     // Debug: Log the exact Price IDs we're using
     console.log('Price IDs configured:', PADDLE_CONFIG.products);
     
-    // Global token definition
-    const PADDLE_CLIENT_TOKEN = 'test_4b05d1a77a742bd77ffa74e3c30';
+    // Global token definition (resolved from ACTIVE)
+    const PADDLE_CLIENT_TOKEN = ACTIVE.token;
 
     // Initialize Paddle (token-based)
     document.addEventListener('DOMContentLoaded', function() {
       if (typeof Paddle !== 'undefined') {
         const env = PADDLE_CLIENT_TOKEN.startsWith('live_') ? 'production' : 'sandbox';
         try {
-          // Ensure sandbox environment per docs when using sandbox accounts
-          if (env === 'sandbox' && Paddle.Environment && typeof Paddle.Environment.set === 'function') {
-            Paddle.Environment.set('sandbox');
+          // Ensure environment per docs
+          if (ACTIVE.paddleEnv && Paddle.Environment && typeof Paddle.Environment.set === 'function') {
+            Paddle.Environment.set(ACTIVE.paddleEnv);
           }
           Paddle.Initialize({
             token: PADDLE_CLIENT_TOKEN
@@ -193,6 +224,19 @@
     function handleFreeStart() {
       // Redirect to Chrome Web Store or direct download
       alert('Please install the DeepReview extension from the Chrome Web Store to get started.');
+    }
+
+    // Open Paddle Customer Portal for self-serve cancel/management
+    function handleManageSubscription() {
+      // You can maintain separate portals for sandbox/live if desired
+      const portal = DR_ENV === 'live'
+        ? 'https://customer-portal.paddle.com/cpl_01k2pvmfqhyaqtxmfcr99nhvw0'
+        : 'https://sandbox-customer-portal.paddle.com/cpl_01k3a321v5f11mvch9z8901v9d';
+      try {
+        window.open(portal, '_blank', 'noopener');
+      } catch (_) {
+        location.href = portal;
+      }
     }
 
     function handleUpgrade(plan) {
