@@ -141,10 +141,8 @@
         const env = PADDLE_CLIENT_TOKEN.startsWith('live_') ? 'production' : 'sandbox';
         try {
           Paddle.Initialize({
-            token: PADDLE_CLIENT_TOKEN,
-            environment: env
+            token: PADDLE_CLIENT_TOKEN
           });
-          Paddle.Environment.set(env);
           Paddle.Events.on('checkout.loaded', function(e){ console.log('Paddle checkout loaded', e); });
           Paddle.Events.on('checkout.completed', function(e){ console.log('Paddle checkout completed', e); });
           console.log('Paddle initialized with token, env:', env);
@@ -207,18 +205,19 @@
         productId: PADDLE_CONFIG.products[plan]
       });
 
-      // Configure Paddle checkout
+      // Configure Paddle checkout (Catalog 2.0)
       Paddle.Checkout.open({
-        product: PADDLE_CONFIG.products[plan],
-        email: userEmail,
-        customerEmail: userEmail,
-        allowQuantityChange: false,
-        disableLogout: true,
-        displayModeTheme: 'light',
-        locale: 'en',
+        items: [{ priceId: PADDLE_CONFIG.products[plan], quantity: 1 }],
+        customer: { email: userEmail },
+        settings: {
+          displayMode: 'overlay',
+          theme: 'light',
+          allowLogout: false,
+          locale: 'en'
+        },
         
         // Custom data for webhook processing
-        passthrough: JSON.stringify({
+        customData: {
           user_email: userEmail,
           user_name: userName,
           user_sub: userSub,
@@ -227,7 +226,7 @@
           flow_id: flowId,
           extension_version: '1.1.2',
           timestamp: new Date().toISOString()
-        }),
+        },
         
         // Success callback
         successCallback: function(data) {
