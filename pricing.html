@@ -182,7 +182,7 @@
       </div>
 
       <div class="center" style="margin:20px 0 8px">
-        <button class="btn btn-ghost btn-lg" onclick="handleManageSubscription()">Manage / Cancel plan</button>
+        <button class="btn btn-ghost btn-lg manage-cancel-btn" onclick="handleManageSubscription()">Manage / Cancel plan</button>
         <div class="note">Stops auto-renew at period end. Current period access is unaffected.</div>
       </div>
 
@@ -208,7 +208,7 @@
 
       <div class="note center">
         We highly value all user experiences, and all basic features are open to the free version.<br>
-        For teams or enterprise licenses, contact us: <a href="mailto:alviegudrun@gmail.com">alviegudrun@gmail.com</a><br>
+        For teams or enterprise licenses, contact us: <a href="mailto:support@deepreview.cloud">support@deepreview.cloud</a><br>
         Thank you for your support! 🙏
       </div>
     </div>
@@ -739,6 +739,20 @@ Thank you for your patience!`;
         grid-template-columns: repeat(2, 1fr);
         max-width: 800px;
       }
+    }
+
+    /* Manage/Cancel button styling */
+    .manage-cancel-btn {
+      background: linear-gradient(135deg, #6b7280, #4b5563) !important;
+      color: white !important;
+      border: 1px solid #374151 !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .manage-cancel-btn:hover {
+      background: linear-gradient(135deg, #4b5563, #374151) !important;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
     /* Override existing pricing styles */
