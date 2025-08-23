@@ -1,947 +1,544 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DeepReview</title>
-  <link rel="stylesheet" href="styles/review.css">
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pricing – DeepReview</title>
+  <link rel="icon" type="image/svg+xml" href="../icons/icon.svg">
+  <link rel="shortcut icon" href="../icons/icon.svg">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
 </head>
 <body>
-  <!-- 登录确认弹窗 -->
-  <div id="authOverlay" class="auth-overlay-modern">
-    <div class="auth-modal-modern">
-      <div class="auth-content">
-        <div class="auth-title-section">
-          <h1 class="auth-title">DeepReview</h1>
+  <header class="site-header plain">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">DeepReview</a>
+      <nav class="nav">
+        <a href="pricing.html" class="active">Pricing</a>
+        <a href="terms.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <h1 class="section-title">Simple, transparent pricing</h1>
+      <p class="muted center">Subscribe securely via Paddle. Taxes may apply in your region.</p>
+
+      <div class="alert" style="margin:14px 0 0">
+        <div><span class="highlight">Note:</span> If you already have a <b>Monthly</b> subscription, please <b>cancel it first</b> in the Customer Portal, then purchase the <b>Yearly</b> plan. Your current month access remains until the period end.</div>
+        <div class="actions"><button class="btn btn-ghost" onclick="handleManageSubscription()">Open Customer Portal</button></div>
+      </div>
+      <div class="pricing-grid-single">
+        <div class="card price">
+          <div class="price-header">Free</div>
+          <div class="price-value">$0</div>
+          <ul class="price-features">
+            <li>✅ Unlimited monthly usage</li>
+            <li>✅ Support for predefined check rules</li>
+            <li>✅ Support for local deployment models</li>
+            <li>✅ Support for report export</li>
+            <li>❌ Custom rules not supported</li>
+            <li>❌ Parallel tasks not supported</li>
+            <li>❌ Merge analysis not supported</li>
+            <li>❌ Review mode not supported</li>
+          </ul>
+          <button class="btn btn-ghost full" onclick="handleFreeStart()">Get Started Free</button>
         </div>
         
-        <button id="authConfirmBtn" class="auth-google-btn">
-          <svg class="auth-google-icon" viewBox="0 0 24 24">
-            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-          </svg>
-          <span class="auth-btn-text">Continue with Google</span>
-        </button>
+        <div class="card price">
+          <div class="price-header">DeepReview Pro</div>
+          <div class="price-value">$5.99<span>/month</span></div>
+          <ul class="price-features">
+            <li>✅ All Free features</li>
+            <li>✅ Custom rules, parallel tasks, merge analysis, review mode</li>
+            <li>✅ Priority support</li>
+            <li>✅ Early access to new features</li>
+          </ul>
+          <button class="btn btn-primary full" onclick="handleUpgrade('monthly')">Subscribe Monthly</button>
+          <p class="pricing-note">Cancel anytime.</p>
+        </div>
         
-        <div id="authLoading" class="auth-loading-modern">
-          <svg class="auth-loading-spinner" viewBox="0 0 24 24">
-            <circle class="auth-spinner-circle" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"/>
-            <path class="auth-spinner-path" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
-          </svg>
-          <span class="auth-loading-text">Signing in...</span>
+        <div class="card price featured">
+          <div class="ribbon">Most Popular</div>
+          <div class="price-header">DeepReview Pro</div>
+          <div class="price-value">$59.90<span>/year</span></div>
+          <ul class="price-features">
+            <li>✅ All Free features</li>
+            <li>✅ Custom rules, parallel tasks, merge analysis, review mode</li>
+            <li>✅ Priority support</li>
+            <li>✅ Early access to new features</li>
+          </ul>
+          <button class="btn btn-primary full" onclick="handleUpgrade('yearly')" id="upgrade-btn">Subscribe Yearly</button>
+          <p class="pricing-note">Save over 15% compared to monthly.</p>
+        </div>
+      </div>
+
+      <div class="center" style="margin:20px 0 8px">
+        <button class="btn btn-ghost btn-lg" onclick="handleManageSubscription()">Manage / Cancel plan</button>
+        <div class="note">Stops auto-renew at period end. Current period access is unaffected.</div>
+      </div>
+
+      <div class="pricing-faq">
+        <h3>Frequently Asked Questions</h3>
+        <details>
+          <summary>Can I cancel anytime?</summary>
+          <p>Yes, you can cancel your subscription at any time. Your access continues until the end of your billing period.</p>
+        </details>
+        <details>
+          <summary>What are custom rules?</summary>
+          <p>Create your own code review rules tailored to your team's specific standards and requirements.</p>
+        </details>
+        <details>
+          <summary>How does parallel processing work?</summary>
+          <p>Process multiple files simultaneously for faster review times, especially beneficial for large codebases.</p>
+        </details>
+        <details>
+          <summary>What is merge analysis?</summary>
+          <p>Analyze related files as a whole to validate overall logic and cross-file dependencies.</p>
+        </details>
+      </div>
+
+      <div class="note center">
+        We highly value all user experiences, and all basic features are open to the free version.<br>
+        For teams or enterprise licenses, contact us: <a href="mailto:alviegudrun@gmail.com">alviegudrun@gmail.com</a><br>
+        Thank you for your support! 🙏
+      </div>
+    </div>
+  </section>
+
+  <!-- Payment Processing Modal -->
+  <div id="payment-modal" class="payment-modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Processing Payment...</h3>
+        <button class="modal-close" onclick="closePaymentModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="payment-status">
+          <div class="spinner"></div>
+          <p id="payment-status-text">Initializing payment...</p>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="review-container">
-    <!-- 顶部工具栏 -->
-    <header class="toolbar">
-      <div class="toolbar-left">
-        <h1>DeepReview</h1>
-      </div>
-      
-      <div class="toolbar-center">
-        <button id="importFiles" class="tool-btn">
-          <span class="icon">📁</span>
-          <span id="btn-import-files" data-translate="btn.importFiles">导入文件</span>
-        </button>
-        <button id="importFolder" class="tool-btn">
-          <span class="icon">📂</span>
-          <span id="btn-import-folder" data-translate="btn.importFolder">导入文件夹</span>
-        </button>
-        <button id="importPredefinedRules" class="tool-btn">
-          <span class="icon">📋</span>
-          <span id="btn-import-rules" data-translate="btn.importRules">导入规则</span>
-        </button>
-        <button id="startReview" class="primary-btn" disabled>
-          <span class="icon">🚀</span>
-          <span id="btn-start-review" data-translate="btn.startReview">开始检视</span>
-        </button>
-        <div id="reviewProgress" class="review-progress">
-          <div class="progress-spinner">
-            <div class="spinner-small"></div>
-          </div>
-          <div class="progress-text">
-            <div id="currentTask" class="current-task"></div>
-            <div id="taskProgress" class="task-progress"></div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="toolbar-right">
-        <!-- 用户认证区域已移除 - 现在自动登录 -->
-        
-        <!-- 用户信息区域已移除 -->
-        
-        <button id="settingsBtn" class="tool-btn">
-          <span class="icon">⚙️</span>
-          <span id="btn-settings" data-translate="btn.settings">设置</span>
-        </button>
-      </div>
-    </header>
-
-    <!-- 主要内容区域 -->
-    <main class="main-content">
-      <!-- 左侧文件面板 -->
-      <div id="filesPanel" class="files-panel">
-        <div class="files-panel-header">
-          <h3 id="files-panel-title" data-translate="panel.filesToReview">待检视文件</h3>
-          <div class="files-panel-actions">
-            <div class="files-count">
-                              <span id="filesCount">0</span> <span id="files-count-unit" data-translate="panel.filesCount">个文件</span>
-            </div>
-            <button id="closeFilesPanel" class="close-panel-btn">&times;</button>
-          </div>
-        </div>
-        
-        <!-- 竖向文件列表 -->
-        <div class="files-container">
-          <div id="filesList" class="files-list">
-            <!-- 动态生成的文件列表 -->
-          </div>
-        </div>
-      </div>
-
-      <!-- 可拖拽分割条 -->
-      <div id="splitter" class="splitter"></div>
-
-      <!-- 编辑器区域 -->
-      <div class="editor-section">
-        <div id="editorContainer" class="editor-container">
-          <div class="editor-header">
-            <div class="editor-info">
-              <span class="file-icon">📄</span>
-              <span class="file-name" id="editor-file-title" data-translate="editor.fileContent">文件内容</span>
-              <span class="file-language" style="display:none"></span>
-            </div>
-          </div>
-          <div class="editor-empty-wrapper">
-            <div class="empty-state">
-              <div class="empty-icon">📄</div>
-              <div class="empty-title" id="empty-editor-title" data-translate="empty.importFiles">1.导入待检视文件</div>
-                              <p class="empty-desc" id="empty-editor-desc" data-translate="empty.importFilesDesc">点击"导入文件"或"导入文件夹"按钮开始</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- 编辑器与结果区域的分割线 -->
-      <div id="resultSplitter" class="editor-result-splitter"></div>
-      
-      <!-- 右侧检视结果区 -->
-      <div class="right-panel">
-        <div class="panel-header-enhanced">
-          <div class="header-left">
-            <h3 id="results-title">检视结果</h3>
-            <div class="inline-stats">
-              <div class="stat-item">
-                <span class="stat-label" id="results-rules-label" data-translate="label.rules">规则</span>
-                <span class="stat-value" id="rulesCount">0</span>
-              </div>
-
-            </div>
-          </div>
-          <div class="header-right">
-            <label class="global-select-container">
-              <input type="checkbox" id="globalSelectAll" class="global-select-checkbox">
-              <span class="global-select-label" id="global-select-label" data-translate="label.selectAll">全选所有</span>
-            </label>
-            
-            <!-- 新增：审阅模式状态筛选器，仅在审阅模式显示 -->
-            <div id="reviewStatusFilter" class="review-status-filter" style="display: none;">
-              <select id="reviewStatusSelect" class="status-filter-select">
-                <option value="all" id="status-all">全部</option>
-                <option value="accepted" id="status-accepted">接受</option>
-                <option value="pending" id="status-pending">待定</option>
-                <option value="rejected" id="status-rejected">拒绝</option>
-              </select>
-            </div>
-            
-            <div class="result-actions">
-              <div class="export-dropdown">
-                <button id="exportResults" class="small-btn" disabled><span id="btn-export">导出</span></button>
-                <div class="export-menu" id="exportMenu" style="display: none;">
-                  <button class="export-option" data-format="html" id="export-as-html">导出为HTML</button>
-                </div>
-              </div>
-              <button id="clearResults" class="small-btn" disabled><span id="btn-clear">删除</span></button>
-            </div>
-          </div>
-        </div>
-        
-        <!-- 规则检视结果 -->
-        <div class="rules-results-container">
-          <div class="empty-state" id="emptyState">
-            <div class="empty-icon">🔍</div>
-                          <p class="empty-title" id="empty-rules-title" data-translate="empty.importRules">2.导入规则开始检视</p>
-                          <p class="empty-desc" id="empty-rules-desc" data-translate="empty.importRulesDesc">点击"导入规则"完成规则导入后点击"开始检视"</p>
-          </div>
-          
-          <div class="rules-results" id="rulesResults" style="display: none;">
-            <!-- 动态生成的规则组将插入这里 -->
-          </div>
-        </div>
-      </div>
-    </main>
-
-    <!-- 预置规则选择弹窗 -->
-    <div id="predefinedRulesModal" class="modal">
-      <div class="modal-content predefined-rules-modal">
-        <div class="modal-header">
-          <div class="category-switcher">
-            <div class="category-tabs">
-              <button class="category-tab active" data-category="code">
-                <span class="category-icon">💻</span>
-                <span class="category-name" id="tab-rules-code" data-translate="tab.rules.code">代码检视</span>
-              </button>
-              <button class="category-tab" data-category="document">
-                <span class="category-icon">📄</span>
-                <span class="category-name" id="tab-rules-doc" data-translate="tab.rules.document">文档检视</span>
-              </button>
-              <button class="category-tab" data-category="custom">
-                <span class="category-icon">📝</span>
-                <span class="category-name" id="tab-rules-custom" data-translate="tab.rules.custom">自定义规则</span>
-              </button>
-            </div>
-          </div>
-          <button class="close-btn" id="closePredefinedRulesBtn">&times;</button>
-        </div>
-        <div class="modal-body predefined-rules-body">
-          
-          <div class="rules-selector">
-            <!-- 左侧语言列表 -->
-            <div class="language-list">
-              <div id="languageList" class="language-items">
-                <!-- 动态生成语言列表 -->
-              </div>
-            </div>
-            
-            <!-- 右侧规则详情 -->
-            <div class="rules-detail">
-              <div id="rulesDetailContent" class="rules-detail-content">
-                <div class="empty-selection">
-                  <div class="empty-icon">📋</div>
-                  <p id="rules-empty-tip">请从左侧选择编程语言查看相关规则</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <!-- 预定义规则按钮 -->
-          <div id="predefinedRulesFooter" class="footer-section">
-            <button class="primary-btn" id="importPredefinedBtn" disabled>
-              <span id="btn-import-selected-rules" data-translate="btn.importSelected">导入选中规则</span> (<span id="importCount">0</span>)
-            </button>
-                          <button class="secondary-btn" id="btn-close-predefined" data-translate="btn.close">关闭</button>
-          </div>
-          
-          <!-- 自定义规则按钮 -->
-          <div id="customRulesFooter" class="footer-section" style="display: none;">
-            <div class="left-group">
-              <button class="import-btn" id="importCustomRulesFooter">
-                <span class="icon">📁</span>
-                <span id="btn-import-files-custom" data-translate="btn.importFilesCustom">导入文件</span>
-              </button>
-              <button class="danger-btn" id="clearCustomRulesBtn">
-                <span class="icon">🗑️</span>
-                <span id="btn-clear-custom-rules" data-translate="btn.clearCustomRules">清除规则</span>
-              </button>
-            </div>
-            <div class="right-group">
-              <button class="primary-btn" id="importSelectedCustomBtn" disabled>
-                <span id="btn-import-selected-custom" data-translate="btn.importSelected">导入选中规则</span> (<span id="importCustomCount">0</span>)
-              </button>
-              <button class="secondary-btn" id="btn-close-custom" data-translate="btn.close">关闭</button>
-            </div>
-            <input type="file" id="customRulesInputFooter" accept=".txt" style="display: none;">
-          </div>
-        </div>
-      </div>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div><strong>DeepReview</strong></div>
+      <nav class="footer-nav">
+        <a href="terms.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="refund.html">Refund</a>
+      </nav>
     </div>
+  </footer>
 
-    <!-- 设置模态框 -->
-    <div id="settingsModal" class="modal">
-      <div class="modal-content settings-modal">
-        <div class="modal-header">
-          <h3 id="settings-modal-title">⚙️ 设置</h3>
-          <button class="close-btn" id="closeSettingsBtn">&times;</button>
-        </div>
-        <div class="modal-body settings-body">
-          <div class="settings-selector">
-            <!-- 左侧设置分类列表 -->
-            <div class="settings-list">
-              <div id="settingsList" class="settings-items">
-                <div class="setting-item active" data-setting="general">
-                  <span class="setting-icon">🔧</span>
-                  <span class="setting-name" data-translate="title.basic">基础设置</span>
-                </div>
+  <script>
+    // Environment toggle: set to 'sandbox' or 'live' (or via ?env=live)
+    const DR_ENV = (new URLSearchParams(location.search).get('env')) || 'sandbox';
 
-                <div class="setting-item" data-setting="advanced">
-                  <span class="setting-icon">🚀</span>
-                  <span class="setting-name" data-translate="title.advanced">高级功能</span>
-                </div>
+    // Centralized Paddle environment configuration
+    const ENV_CONFIG = {
+      sandbox: {
+        token: 'test_4b05d1a77a742bd77ffa74e3c30',
+        products: {
+          yearly: 'pri_01k3a39jpkydhhwra9ne1s797m',
+          monthly: 'pri_01k3a38rw99kgp3g64n2accx14'
+        },
+        paddleEnv: 'sandbox'
+      },
+      live: {
+        token: 'live_9ecb2f70961454470867728f006',
+        products: {
+          yearly: 'pri_01k39w7nmf4vd3rn1byb6p8ny6',
+          monthly: 'pri_01k39wh6ex2ddg4bt2v5vh53ym'
+        },
+        paddleEnv: 'production'
+      }
+    };
+    const ACTIVE = ENV_CONFIG[DR_ENV] || ENV_CONFIG.sandbox;
 
-                <div class="setting-item" data-setting="subscription">
-                  <span class="setting-icon">💎</span>
-                  <span class="setting-name" data-translate="subscription.title">订阅管理</span>
-                </div>
+    // Paddle configuration (resolved from ACTIVE)
+    const PADDLE_CONFIG = {
+      vendorId: '42232',
+      environment: DR_ENV,
+      products: ACTIVE.products
+    };
+    
+    // Debug: Log the exact Price IDs we're using
+    console.log('Price IDs configured:', PADDLE_CONFIG.products);
+    
+    // Global token definition (resolved from ACTIVE)
+    const PADDLE_CLIENT_TOKEN = ACTIVE.token;
 
-                <div class="setting-item" data-setting="help">
-                  <span class="setting-icon">📖</span>
-                  <span class="setting-name" data-translate="help.title">使用说明</span>
-                </div>
+    // Initialize Paddle (token-based)
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof Paddle !== 'undefined') {
+        const env = PADDLE_CLIENT_TOKEN.startsWith('live_') ? 'production' : 'sandbox';
+        try {
+          // Ensure environment per docs
+          if (ACTIVE.paddleEnv && Paddle.Environment && typeof Paddle.Environment.set === 'function') {
+            Paddle.Environment.set(ACTIVE.paddleEnv);
+          }
+          const paramsForInit = getUrlParams ? getUrlParams() : {};
+          const pw = (DR_ENV === 'live' && paramsForInit && paramsForInit.email) ? { email: paramsForInit.email } : undefined;
+          const initOptions = pw ? { token: PADDLE_CLIENT_TOKEN, pwCustomer: pw } : { token: PADDLE_CLIENT_TOKEN };
+          Paddle.Initialize(initOptions);
+          console.log('Paddle initialized with token, env:', env);
+          
+          // Add event listeners for debugging
+          if (Paddle.Events && typeof Paddle.Events.on === 'function') {
+            Paddle.Events.on('checkout.loaded', function(e) { 
+              console.log('🎉 Paddle checkout loaded:', e); 
+            });
+            Paddle.Events.on('checkout.completed', function(e) { 
+              console.log('✅ Paddle checkout completed:', e); 
+            });
+            Paddle.Events.on('checkout.closed', function(e) { 
+              console.log('❌ Paddle checkout closed:', e); 
+            });
+            console.log('Event listeners added');
+          } else {
+            console.log('Paddle.Events not available or different API');
+          }
+        } catch (e) {
+          console.error('Paddle Initialize failed:', e);
+        }
+      } else {
+        console.error('Paddle.js not loaded');
+      }
+    });
 
-                <div class="setting-item" data-setting="privacy">
-                  <span class="setting-icon">🔒</span>
-                  <span class="setting-name" data-translate="error.privacySettings">隐私设置</span>
-                </div>
+    function getUrlParams() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return {
+        email: urlParams.get('email'),
+        plan: urlParams.get('plan'),
+        flowId: urlParams.get('flowId'),
+        userName: urlParams.get('userName') || '',
+        userSub: urlParams.get('userSub') || ''
+      };
+    }
 
-                <div class="setting-item" data-setting="usage">
-                  <span class="setting-icon">📊</span>
-                  <span class="setting-name" data-translate="usage.title">Usage</span>
-                </div>
+    function handleFreeStart() {
+      // Redirect to Chrome Web Store or direct download
+      alert('Please install the DeepReview extension from the Chrome Web Store to get started.');
+    }
 
-                <div class="setting-item" data-setting="about">
-                  <span class="setting-icon">ℹ️</span>
-                  <span class="setting-name" data-translate="about.title">关于</span>
-                </div>
-              </div>
-            </div>
-            
-            <!-- 右侧设置详情 -->
-            <div class="settings-detail">
-              <div id="settingsDetailContent" class="settings-detail-content">
-                <!-- 基础设置面板 -->
-                <div id="generalSettings" class="setting-panel active">
-                  <!-- 基础设置部分 -->
-                  <div class="settings-section">
-                    
-                    <div class="setting-group">
-                      <label>API Provider</label>
-                      <select id="apiProvider">
-                        <option value="openai">OpenAI</option>
-                        <option value="claude">Anthropic Claude</option>
-                        <option value="deepseek">Deepseek</option>
-                        <option value="gemini">Google Gemini</option>
-                        <option value="openai-compatible">OpenAI Compatible</option>
-                      </select>
-                    </div>
-                    
-                    <div class="setting-group">
-                      <label id="label-ai-model">AI模型</label>
-                      <select id="aiModel">
-                        <!-- 动态生成 -->
-                      </select>
-                    </div>
+    // Open Paddle Customer Portal for self-serve cancel/management
+    function handleManageSubscription() {
+      // You can maintain separate portals for sandbox/live if desired
+      const portal = DR_ENV === 'live'
+        ? 'https://customer-portal.paddle.com/cpl_01k2pvmfqhyaqtxmfcr99nhvw0'
+        : 'https://sandbox-customer-portal.paddle.com/cpl_01k3a321v5f11mvch9z8901v9d';
+      try {
+        window.open(portal, '_blank', 'noopener');
+      } catch (_) {
+        location.href = portal;
+      }
+    }
 
-                    <!-- 语言设置 -->
-                    <div class="setting-group">
-                      <label>Language</label>
-                      <select id="uiLanguage">
-                        <option value="en" selected>English</option>
-                        <option value="zh">中文</option>
-                      </select>
-                    </div>
-                    
-                    <div class="setting-group">
-                      <label>API URL</label>
-                      <input type="url" id="apiEndpoint" data-translate-placeholder="placeholder.apiUrlOptional">
-                      <div class="setting-hint" id="hint-api-endpoint">使用预定义模型时可选，选择"其他"时必须填写</div>
-                    </div>
-                    
-                    <div class="setting-group">
-                      <label id="label-api-key">API密钥</label>
-                      <input type="password" id="apiKey" data-translate-placeholder="placeholder.apiKey">
-                    </div>
-                    
-                    <!-- 登录与后端配置 -->
-                    <div class="settings-section">
-                      
-                      <!-- Google Client ID 和 Supabase 配置已内置到代码中 -->
-                    </div>
-                    
-                    <div class="setting-group">
-                      <label id="label-max-tokens">输出长度</label>
-                      <input type="number" id="maxTokens" min="100" value="4000" placeholder="4000">
-                      <div class="setting-hint" id="hint-max-tokens">设置过小会导致AI返回信息被截断，设置过大AI模型会拒绝响应，建议2000-8000之间</div>
-                    </div>
-                    
-                    <div class="setting-group">
-                      <label id="label-context-window">上下文长度</label>
-                      <input type="number" id="contextWindow" min="1000" value="32768" placeholder="32768">
-                      <div class="setting-hint" id="hint-context-window">当待检视内容超过设置值时，会自动进行任务分片提交，不建议修改</div>
-                    </div>
-                    
-                    <!-- 导出设置 -->
-                    <div class="setting-group">
-                      <label id="label-export-layout">导出排版模式</label>
-                      <select id="exportLayoutMode">
-                                      <option value="rule" data-translate="export.byRule">按规则排版</option>
-              <option value="file" data-translate="export.byFile">按文件排版</option>
-                      </select>
-                      <div class="setting-hint" id="hint-export-layout">按规则排版：先显示一个规则的所有文件结果，再显示下一个规则；按文件排版：先显示一个文件的所有规则结果，再显示下一个文件</div>
-                    </div>
-                    
-                    <div class="setting-group">
-                      <div class="checkbox-container">
-                        <input type="checkbox" id="exportFilterPassed">
-                        <label for="exportFilterPassed" id="label-export-filter-passed">过滤通过的检查</label>
-                      </div>
-                      <div class="setting-hint" id="hint-export-filter-passed">选中时只显示有问题的检查结果，隐藏通过的检查</div>
-                    </div>
-                    
-                    <div class="setting-group">
-                      <div class="checkbox-container">
-                        <input type="checkbox" id="exportEnableCollapse" checked>
-                        <label for="exportEnableCollapse" id="label-export-collapse">启用折叠功能</label>
-                      </div>
-                      <div class="setting-hint" id="hint-export-collapse">在HTML报告中启用章节折叠功能，便于浏览长报告</div>
-                    </div>
-                    
-                    <div class="setting-group action-row">
-                      <button id="testConnection" class="secondary-btn">
-                        <span class="icon">🔗</span>
-                        <span data-translate="btn.testConnection">测试API连接</span>
-                      </button>
-                      <div id="connectionStatus" class="connection-status"></div>
-                    </div>
-                  </div>
+    function handleUpgrade(plan) {
+      const params = getUrlParams();
+      const userEmail = params.email || prompt('Please enter your email address:');
+      const userName = params.userName || '';
+      const userSub = params.userSub || '';
+      const flowId = params.flowId || `web_${Date.now()}`;
+      
+      if (!userEmail) {
+        alert('Email address is required to proceed with upgrade.');
+        return;
+      }
 
-                  <button id="resetSettings" class="danger-btn">
-                    <span class="icon">🧹</span>
-                    <span data-translate="btn.resetDefault">重置默认配置</span>
-                  </button>
+      if (!PADDLE_CONFIG.products[plan]) {
+        alert('Product configuration error. Please contact support.');
+        return;
+      }
 
-                </div>
-                
-                <!-- 订阅管理面板 -->
-                <div id="subscriptionSettings" class="setting-panel">
-                  <div class="settings-section">
-                    <!-- 用户信息与订阅状态 -->
-                    <div class="subscription-user-info">
-                      <div class="user-card-enhanced">
-                        <div class="user-header-compact">
-                          <div class="user-avatar" id="subscriptionUserAvatar">👤</div>
-                          <div class="user-details">
-                            <div class="user-name" id="subscriptionUserName"></div>
-                            <div class="user-email" id="subscriptionUserEmail">user@example.com</div>
-                          </div>
-                          <div class="user-actions">
-                            <div class="status-badge-compact" id="subscriptionStatusBadge" data-translate="subscription.status.free">免费版</div>
-                            <button id="refreshSubscriptionStatus" class="refresh-btn-compact">
-                              <span class="icon">🔄</span>
-                              <span data-translate="btn.refresh">刷新</span>
-                            </button>
-                          </div>
-                        </div>
-                        
-                        <div class="trial-info-compact" id="trialInfo" style="display: none;">
-                          <div class="trial-badge" data-translate="subscription.trial.badge">试用期</div>
-                          <div class="trial-remaining"><span data-translate="subscription.trial.remaining">剩余</span> <span id="trialDaysLeft">7</span> <span data-translate="subscription.trial.days">天</span></div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <!-- 升级按钮区域 -->
-                    <div class="upgrade-actions" id="upgradeActions">
-                      <div class="upgrade-buttons">
-                        <button class="upgrade-btn upgrade-monthly" id="upgradeMonthlyBtn">
-                          <span class="btn-content">
-                            <span class="btn-icon">💎</span>
-                            <span class="btn-text" data-translate="plan.upgrade">管理订阅计划</span>
-                          </span>
-                        </button>
-                      </div>
-                    </div>
-                    
-                    <!-- 版本对比 -->
-                    <div class="plans-container">
-                        <!-- Free Plan -->
-                        <div class="plan-card plan-free">
-                          <div class="plan-header">
-                            <div class="plan-name" data-translate="plan.free">Free</div>
-                            <div class="plan-price">
-                              <span class="price">$0</span>
-                              <span class="period" data-translate="plan.price.month">/month</span>
-                            </div>
-                          </div>
-                          
-                          <div class="plan-features">
-                            <div class="feature-item">
-                              <span class="feature-icon">🚀</span>
-                              <span class="feature-text" data-translate="feature.unlimitedUsage">每月使用次数不受限制</span>
-                            </div>
-                            <div class="feature-item">
-                              <span class="feature-icon">✅</span>
-                              <span class="feature-text" data-translate="feature.predefinedRules">支持各种预定义检查规则</span>
-                            </div>
-                            <div class="feature-item">
-                              <span class="feature-icon">✅</span>
-                              <span class="feature-text" data-translate="feature.localModels">支持本地部署模型</span>
-                            </div>
-                            <div class="feature-item">
-                              <span class="feature-icon">✅</span>
-                              <span class="feature-text" data-translate="feature.reportExport">支持报告导出</span>
-                            </div>
-                            <div class="feature-item disabled">
-                              <span class="feature-icon">❌</span>
-                              <span class="feature-text" data-translate="feature.notSupported.customRules">不支持自建规则</span>
-                            </div>
-                            <div class="feature-item disabled">
-                              <span class="feature-icon">❌</span>
-                              <span class="feature-text" data-translate="feature.notSupported.parallelTasks">不支持并行任务</span>
-                            </div>
-                            <div class="feature-item disabled">
-                              <span class="feature-icon">❌</span>
-                              <span class="feature-text" data-translate="feature.notSupported.mergeAnalysis">不支持合并分析</span>
-                            </div>
-                            <div class="feature-item disabled">
-                              <span class="feature-icon">❌</span>
-                              <span class="feature-text" data-translate="feature.notSupported.reviewMode">不支持审阅模式</span>
-                            </div>
-                          </div>
-                        </div>
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(userEmail)) {
+        alert('Please enter a valid email address.');
+        return;
+      }
 
-                        <!-- Pro Plan -->
-                        <div class="plan-card plan-pro">
-                          <div class="plan-header">
-                            <div class="plan-badge" data-translate="plan.mostPopular">Most Popular</div>
-                            <div class="plan-name" data-translate="plan.pro">Pro</div>
-                            <div class="plan-price">
-                              <span class="price">$5.99</span>
-                              <span class="period" data-translate="plan.price.month">/month</span>
-                            </div>
-                          </div>
-                          
-                          <div class="plan-features">
-                            <div class="feature-item">
-                              <span class="feature-icon">🚀</span>
-                              <span class="feature-text" data-translate="feature.unlimitedUsage">每月使用次数不受限制</span>
-                            </div>
-                            <div class="feature-item">
-                              <span class="feature-icon">✅</span>
-                              <span class="feature-text" data-translate="feature.predefinedRules">支持各种预定义检查规则</span>
-                            </div>
-                            <div class="feature-item">
-                              <span class="feature-icon">✅</span>
-                              <span class="feature-text" data-translate="feature.localModels">支持本地部署模型</span>
-                            </div>
-                            <div class="feature-item">
-                              <span class="feature-icon">✅</span>
-                              <span class="feature-text" data-translate="feature.reportExport">支持报告导出</span>
-                            </div>
-                            <div class="feature-item">
-                              <span class="feature-icon">✅</span>
-                              <span class="feature-text" data-translate="feature.customRules">支持自建规则</span>
-                            </div>
-                            <div class="feature-item">
-                              <span class="feature-icon">✅</span>
-                              <span class="feature-text" data-translate="feature.parallelTasks">支持并行任务</span>
-                            </div>
-                            <div class="feature-item">
-                              <span class="feature-icon">✅</span>
-                              <span class="feature-text" data-translate="feature.mergeAnalysis">支持合并分析</span>
-                            </div>
-                            <div class="feature-item">
-                              <span class="feature-icon">✅</span>
-                              <span class="feature-text" data-translate="feature.reviewMode">支持审阅模式</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <!-- 用户反馈 -->
-                      <div class="feedback-section">
-                        <div class="feedback-content">
-                          <p class="feedback-description" data-translate="feedback.description">
-                            我们高度重视所有用户的体验，所有基本功能均向免费版本开放。
-                          </p>
-                          <p class="feedback-contact">
-                            <span data-translate="feedback.contact">如果您有任何建议，欢迎反馈到</span>
-                            <a href="mailto:aliviegudrun@gmail.com" class="feedback-email">aliviegudrun@gmail.com</a>
-                          </p>
-                          <p class="feedback-thanks" data-translate="feedback.thanks">
-                            感谢您的支持！ 🙏
-                          </p>
-                        </div>
-                      </div>
-                  </div>
-                </div>
-                
-                <!-- 使用说明面板 -->
-                <div id="helpSettings" class="setting-panel">
-                  <div class="settings-section help-section">
-                    <div class="help-nav">
-                      <div class="help-nav-item active" data-help="quickstart">
-                        <span class="help-icon">🚀</span>
-                        <span>快速开始</span>
-                      </div>
-                      <div class="help-nav-item" data-help="basic">
-                        <span class="help-icon">⚙️</span>
-                        <span>基本设置</span>
-                      </div>
-                      <div class="help-nav-item" data-help="rules">
-                        <span class="help-icon">📋</span>
-                        <span>规则使用</span>
-                      </div>
-                      <div class="help-nav-item" data-help="custom">
-                        <span class="help-icon">✍️</span>
-                        <span>自定义规则</span>
-                      </div>
-                      <div class="help-nav-item" data-help="optimization">
-                        <span class="help-icon">🎯</span>
-                        <span>优化技巧</span>
-                      </div>
-                      <div class="help-nav-item" data-help="troubleshooting">
-                        <span class="help-icon">🔧</span>
-                        <span>故障排查</span>
-                      </div>
-                      <div class="help-nav-item" data-help="privacy">
-                        <span class="help-icon">🔒</span>
-                        <span>隐私说明</span>
-                      </div>
-                    </div>
-                    
-                    <div class="help-content">
-                      <!-- 快速开始 -->
-                      <div id="helpQuickstart" class="help-content-section active">
-                        <h3>🚀 快速开始</h3>
-                        
-                        <div class="help-step">
-                          <h4>1. 配置API密钥</h4>
-                          <p>在基本设置中选择您的AI提供商并输入API密钥：</p>
-                          <ul>
-                            <li><strong>OpenAI</strong>: 在 <a href="https://platform.openai.com/" target="_blank">platform.openai.com</a> 获取密钥</li>
-                            <li><strong>Claude</strong>: 在 <a href="https://console.anthropic.com/" target="_blank">console.anthropic.com</a> 获取密钥</li>
-                            <li><strong>Deepseek</strong>: 在 <a href="https://platform.deepseek.com/" target="_blank">platform.deepseek.com</a> 获取密钥</li>
-                            <li><strong>Gemini</strong>: 在 <a href="https://makersuite.google.com/" target="_blank">makersuite.google.com</a> 获取密钥</li>
-                          </ul>
-                        </div>
-                        
-                        <div class="help-step">
-                          <h4>2. 导入文件或文件夹</h4>
-                          <p>点击工具栏的"导入文件"或"导入文件夹"按钮，选择要检查的代码或文档。</p>
-                        </div>
-                        
-                        <div class="help-step">
-                          <h4>3. 导入检查规则</h4>
-                          <p>点击"导入规则"按钮，选择预定义规则或自定义规则文件。</p>
-                        </div>
-                        
-                        <div class="help-step">
-                          <h4>4. 开始检查</h4>
-                          <p>点击"开始检视"按钮，AI将根据选择的规则对文件进行分析。</p>
-                        </div>
-                        
-                        <div class="help-step">
-                          <h4>5. 查看结果</h4>
-                          <p>检查完成后，在右侧面板查看详细的分析结果，可以导出为HTML或其他格式。</p>
-                        </div>
-                      </div>
-                      
-                      <!-- 基本设置 -->
-                      <div id="helpBasic" class="help-content-section">
-                        <h3>⚙️ 基本设置说明</h3>
-                        
-                        <div class="help-topic">
-                          <h4>AI模型选择</h4>
-                          <p><strong>推荐配置</strong>：</p>
-                          <ul>
-                            <li><strong>代码检查</strong>: GPT-4o, Claude-3.5-Sonnet, Deepseek-Coder</li>
-                            <li><strong>文档检查</strong>: GPT-4o, Claude-3.5-Sonnet</li>
-                            <li><strong>性价比</strong>: GPT-4o-Mini, Claude-3.5-Haiku</li>
-                          </ul>
-                        </div>
-                        
-                        <div class="help-topic">
-                          <h4>输出长度设置</h4>
-                          <p>建议设置：</p>
-                          <ul>
-                            <li><strong>简单检查</strong>: 2000-4000 tokens</li>
-                            <li><strong>详细分析</strong>: 4000-8000 tokens</li>
-                            <li><strong>大型文件</strong>: 6000-8000 tokens</li>
-                          </ul>
-                        </div>
-                        
-                        <div class="help-topic">
-                          <h4>导出设置</h4>
-                          <ul>
-                            <li><strong>按规则排版</strong>: 适合查看特定规则的所有问题</li>
-                            <li><strong>按文件排版</strong>: 适合逐个文件修改问题</li>
-                            <li><strong>过滤通过的检查</strong>: 只显示有问题的项目</li>
-                          </ul>
-                        </div>
-                      </div>
-                      
-                      <!-- 规则使用 -->
-                      <div id="helpRules" class="help-content-section">
-                        <h3>📋 预定义规则使用</h3>
-                        
-                        <div class="help-topic">
-                          <h4>规则分类</h4>
-                          <ul>
-                            <li><strong>代码规则</strong>: 针对各种编程语言的最佳实践</li>
-                            <li><strong>文档规则</strong>: 技术文档和营销文档的质量检查</li>
-                          </ul>
-                        </div>
-                        
-                        <div class="help-topic">
-                          <h4>如何选择规则</h4>
-                          <ul>
-                            <li>根据文件类型选择对应的规则集</li>
-                            <li>可以同时应用多个规则文件</li>
-                            <li>通用规则适用于所有项目</li>
-                            <li>专门规则针对特定技术栈</li>
-                          </ul>
-                        </div>
-                        
-                        <div class="help-topic">
-                          <h4>批量导入规则</h4>
-                          <p>支持一次性导入多个 .txt 规则文件，系统会自动合并规则内容。</p>
-                        </div>
-                      </div>
-                      
-                      <!-- 其他帮助内容继续... -->
-                      <div id="helpCustom" class="help-content-section">
-                        <h3>✍️ 自定义规则创建</h3>
-                        <div class="help-topic">
-                          <h4>规则语法</h4>
-                          <p>每个规则应该包含：</p>
-                          <ul>
-                            <li>清晰的标题和编号</li>
-                            <li>具体的检查要求</li>
-                            <li>正确和错误的示例</li>
-                          </ul>
-                        </div>
-                      </div>
-                      
-                      <div id="helpOptimization" class="help-content-section">
-                        <h3>🎯 优化检查效果</h3>
-                        <div class="help-topic">
-                          <h4>影响检查质量的因素</h4>
-                          <ul>
-                            <li>文件大小 (建议单个文件小于10MB)</li>
-                            <li>规则明确性</li>
-                            <li>AI模型选择</li>
-                            <li>输出长度设置</li>
-                          </ul>
-                        </div>
-                      </div>
-                      
-                      <div id="helpTroubleshooting" class="help-content-section">
-                        <h3>🔧 常见问题排查</h3>
-                        <div class="help-topic">
-                          <h4>API连接问题</h4>
-                          <ul>
-                            <li>检查API密钥是否正确</li>
-                            <li>确认网络连接正常</li>
-                            <li>检查API额度是否充足</li>
-                          </ul>
-                        </div>
-                      </div>
-                      
-                      <div id="helpPrivacy" class="help-content-section">
-                        <h3>🔒 隐私和数据使用</h3>
-                        <div class="help-topic">
-                          <h4>数据处理方式</h4>
-                          <ul>
-                            <li>所有代码处理都在本地浏览器进行</li>
-                            <li>扩展直接连接AI服务商官方API</li>
-                            <li>不经过我们的服务器</li>
-                            <li>用户完全控制API密钥</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- 高级功能面板 -->
-                <div id="advancedSettings" class="setting-panel">
-                  <div class="settings-section">
-                    <!-- 审阅模式开关 -->
-                    <div class="feature-group compact">
-                      <div class="feature-header">
-                        <h5 id="title-review-mode">📝 审阅模式</h5>
-                      </div>
-                      <div class="feature-control">
-                        <div class="checkbox-container">
-                          <input type="checkbox" id="enableReviewMode">
-                          <label for="enableReviewMode" id="label-enable-review">启用审阅模式</label>
-                        </div>
-                      </div>
-                      <div class="control-hint" id="hint-enable-review">开启后可对每条结果进行接受/待定/拒绝标记，并可按状态筛选与导出</div>
-                    </div>
-                    
-                    <!-- 模型温度 -->
-                    <div class="feature-group">
-                      <div class="feature-header">
-                        <h5 id="title-creativity">🎛 创造性</h5>
-                      </div>
-                      <div class="feature-control">
-                        <div class="temperature-control">
-                          <input type="range" id="temperature" min="0" max="1" step="0.1" value="0" class="range-slider">
-                          <div class="range-value">
-                            <span id="temperatureValue">0</span>
-                            <span class="unit" id="unit-temperature">模型温度</span>
-                          </div>
-                        </div>
-                        <div class="control-hint" id="hint-temperature">控制AI响应的随机性，0=确定性，1=创造性</div>
-                      </div>
-                    </div>
-                    
-                    <!-- 任务并行提交 -->
-                    <div class="feature-group">
-                      <div class="feature-header">
-                        <h5 id="title-parallel">⚡ 任务并行提交</h5>
-                      </div>
-                      <div class="feature-control">
-                        <div class="parallel-control">
-                          <input type="range" id="parallelTasks" min="1" max="100" value="1" class="range-slider">
-                          <div class="range-value">
-                            <span id="parallelTasksValue">1</span>
-                            <span class="unit" id="unit-parallel">个任务</span>
-                          </div>
-                        </div>
-                        <div class="control-hint" id="hint-parallel">并行提交的任务数，建议值：5-20，根据网络状况调整</div>
-                      </div>
-                    </div>
-                    
-                    <!-- 多文件合并分析 -->
-                    <div class="feature-group compact">
-                      <div class="feature-header">
-                        <h5 id="title-multifile">📁 多文件合并分析</h5>
-                      </div>
-                      <div class="feature-control">
-                        <div class="checkbox-container">
-                          <input type="checkbox" id="enableMultiFileAnalysis">
-                          <label for="enableMultiFileAnalysis" id="label-enable-multifile">启用多文件合并分析</label>
-                        </div>
-                      </div>
-                      <div class="control-hint" id="hint-multifile">具有相关性的多个文件作为整体分析，用于检查项目的整体代码功能或逻辑描述是否符合预期</div>
-                    </div>
-                    
-                    <!-- 报告详略程度 -->
-                    <div class="feature-group">
-                      <div class="feature-header">
-                        <h5 id="title-report-detail">📊 报告详略程度</h5>
-                      </div>
-                      <div class="feature-control">
-                        <div class="radio-group">
-                          <label class="radio-label">
-                            <input type="radio" name="reportDetail" value="simple" id="reportSimple">
-                            <span class="radio-custom"></span>
-                            <div class="radio-content">
-                              <div class="radio-title" id="report-title-simple">简单</div>
-                              <div class="radio-desc" id="report-desc-simple">快速概览，适合日常检视</div>
-                            </div>
-                          </label>
-                          <label class="radio-label">
-                            <input type="radio" name="reportDetail" value="balanced" id="reportBalanced" checked>
-                            <span class="radio-custom"></span>
-                            <div class="radio-content">
-                              <div class="radio-title" id="report-title-balanced">均衡</div>
-                              <div class="radio-desc" id="report-desc-balanced">平衡详细度和速度，推荐使用</div>
-                            </div>
-                          </label>
-                          <label class="radio-label">
-                            <input type="radio" name="reportDetail" value="detailed" id="reportDetailed">
-                            <span class="radio-custom"></span>
-                            <div class="radio-content">
-                              <div class="radio-title" id="report-title-detailed">详细</div>
-                              <div class="radio-desc" id="report-desc-detailed">深度分析，适合重要项目</div>
-                            </div>
-                          </label>
-                        </div>
-                      </div>
-                    </div>
+      showPaymentModal();
+      updatePaymentStatus('Initializing payment...');
 
+      console.log('Starting payment flow:', {
+        plan,
+        userEmail,
+        userName,
+        flowId,
+        productId: PADDLE_CONFIG.products[plan]
+      });
 
-                      </div>
-                    </div>
+      // Configure Paddle checkout
+      Paddle.Checkout.open({
+        items: [{ priceId: PADDLE_CONFIG.products[plan], quantity: 1 }],
+        customer: { email: userEmail },
+        settings: {
+          displayMode: 'overlay',
+          theme: 'light',
+          allowLogout: false,
+          locale: 'en'
+        },
+        
+        // Custom data for webhook processing
+        customData: {
+          user_email: userEmail,
+          ...(userName && { user_name: userName }),
+          ...(userSub && { user_sub: userSub }),
+          plan: plan,
+          source: 'extension',
+          flow_id: flowId,
+          extension_version: '1.1.2',
+          timestamp: new Date().toISOString()
+        }
+      });
 
-                <!-- 隐私设置面板 -->
-                <div id="privacySettings" class="setting-panel">
-                  <div class="privacy-info">
-                    <div class="privacy-guarantee">
-                      <h4 id="title-privacy" data-translate="privacy.guarantee">🔒 隐私保证</h4>
-                      <div class="guarantee-item">
-                        <span class="guarantee-icon">✅</span>
-                        <span id="privacy-item1" data-translate="privacy.item1">代码从不离开您的环境</span>
-                      </div>
-                      <div class="guarantee-item">
-                        <span class="guarantee-icon">✅</span>
-                        <span id="privacy-item2" data-translate="privacy.item2">直连AI服务，不经过我们的服务器</span>
-                      </div>
-                      <div class="guarantee-item">
-                        <span class="guarantee-icon">✅</span>
-                        <span id="privacy-item3" data-translate="privacy.item3">您完全控制API密钥</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- Usage 面板 -->
-                <div id="usageSettings" class="setting-panel">
-                  <div class="settings-section">
-                    <h4 id="title-recent-tasks">📊 最近任务</h4>
-                    <div id="usageList" style="max-height: 360px; overflow: auto; border: 1px solid #e0e0e0; border-radius: 8px; padding: 12px; background: #fff;">
-                      <!-- 动态填充最近任务 -->
-                    </div>
-                    <div style="margin-top: 12px; display: flex; gap: 8px;">
-                      <button id="clearUsageRecords" class="danger-btn">清空记录</button>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- 关于面板 -->
-                <div id="aboutSettings" class="setting-panel">
-                  <div class="about-info">
-                    <div class="app-info">
-                      <div class="app-icon">🔍</div>
-                      <h3>DeepReview</h3>
-                      <p class="version"><span id="label-version" data-translate="label.version">版本</span> 1.0.0</p>
-                      <p class="description" id="about-description" data-translate="about.description">智能检视插件，帮助您更快发现代码文档问题</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button id="saveSettings" class="primary-btn" data-translate="btn.saveSettings">保存设置</button>
-          <button id="cancelSettings" class="secondary-btn" data-translate="btn.cancel">取消</button>
-        </div>
-      </div>
-    </div>
+      // Start monitoring the overlay so our spinner is hidden at the right time
+      monitorCheckoutOverlay();
+      
+      console.log('✅ Paddle checkout opened successfully');
+    }
 
+    function showPaymentModal() {
+      document.getElementById('payment-modal').classList.remove('hidden');
+    }
 
+    function closePaymentModal() {
+      document.getElementById('payment-modal').classList.add('hidden');
+    }
 
-    <!-- 加载指示器 -->
-    <div id="loadingIndicator" class="loading-indicator">
-      <div class="spinner"></div>
-                    <p id="loadingText" data-translate="text.loadingReview">正在进行代码检视...</p>
-    </div>
-  </div>
+    function updatePaymentStatus(message) {
+      document.getElementById('payment-status-text').textContent = message;
+    }
 
-  <!-- 文件输入 -->
-          <!-- 隐藏的文件输入 -->
-    <input type="file" id="fileInput" multiple accept=".js,.ts,.jsx,.tsx,.py,.java,.cpp,.c,.cs,.go,.php,.rb,.rs,.kt,.swift,.vue,.html,.css,.json,.xml,.sql,.sh,.yaml,.yml,.md,.docx" style="display: none;">
-    <input type="file" id="folderInput" webkitdirectory directory multiple style="display: none;">
-            <input type="file" id="rulesInput" accept=".txt" style="display: none;">
+    // Hide our processing modal when Paddle overlay appears or is closed
+    function monitorCheckoutOverlay() {
+      // Poll briefly for the overlay iframe to show, then hide our spinner
+      const start = Date.now();
+      const maxWaitMs = 8000;
+      const interval = setInterval(() => {
+        const overlay = document.querySelector('iframe[src*="paddle"]');
+        const isHidden = document.querySelector('#payment-modal.hidden');
+        if (overlay && !isHidden) {
+          closePaymentModal();
+          clearInterval(interval);
+          return;
+        }
+        if (Date.now() - start > maxWaitMs) {
+          clearInterval(interval);
+        }
+      }, 300);
 
-      <!-- 脚本 -->
-    <script src="scripts/vendor/mammoth.browser.min.js"></script>
-    <script type="module" src="scripts/monaco-bootstrap.js"></script>
-    <script src="scripts/ui-language-loader.js"></script>
-    <script src="scripts/auth.js"></script>
-    <script src="scripts/export.js"></script>
-    <script src="scripts/review.js"></script>
+      // Best effort: if Paddle provides Events, also close on checkout.closed
+      if (window.Paddle && Paddle.Events && typeof Paddle.Events.on === 'function') {
+        try {
+          Paddle.Events.on('checkout.closed', function(){ closePaymentModal(); });
+          Paddle.Events.on('checkout.loaded', function(){ closePaymentModal(); });
+        } catch(_){}
+      }
+    }
+
+    function handlePaymentSuccess(data) {
+      updatePaymentStatus('Subscription activated successfully!');
+      
+      setTimeout(() => {
+        closePaymentModal();
+        
+        // Show success message
+        const message = `🎉 Welcome to DeepReview Pro!
+
+Your subscription is now active. You can:
+• Close this page and return to the extension
+• The extension will automatically detect your Pro status
+• Enjoy unlimited features!
+
+Thank you for your support! 🙏`;
+        
+        alert(message);
+        
+        // Try to close window or redirect
+        if (window.opener) {
+          window.close();
+        } else {
+          // Redirect to success page
+          window.location.href = 'index.html?success=true';
+        }
+      }, 3000);
+    }
+
+    function showProcessingNotice() {
+      const message = `Payment Processing Notice
+
+Your payment may still be processing. 
+
+What to do next:
+• Return to the extension and wait a few minutes
+• The extension will automatically detect your subscription status
+• If you don't see Pro features after 10 minutes, please contact support
+
+Thank you for your patience!`;
+      
+      alert(message);
+    }
+
+    // Auto-trigger upgrade if parameters are present
+    document.addEventListener('DOMContentLoaded', function() {
+      const params = getUrlParams();
+      if (params.plan && params.email) {
+        console.log('Auto-triggering upgrade with params:', params);
+        // Small delay to ensure Paddle is loaded
+        setTimeout(() => {
+          handleUpgrade(params.plan);
+        }, 1000);
+      }
+    });
+
+    // Handle success redirect from index page
+    if (window.location.search.includes('success=true')) {
+      document.addEventListener('DOMContentLoaded', function() {
+        const successBanner = document.createElement('div');
+        successBanner.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          background: #10b981;
+          color: white;
+          text-align: center;
+          padding: 1rem;
+          z-index: 1000;
+          font-weight: 500;
+        `;
+        successBanner.textContent = '🎉 Payment successful! Your DeepReview Pro subscription is now active.';
+        document.body.appendChild(successBanner);
+        
+        setTimeout(() => {
+          successBanner.remove();
+        }, 10000);
+      });
+    }
+  </script>
+
+  <style>
+    .pricing-grid-single {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .price-trial {
+      color: #059669;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .pricing-note {
+      font-size: 0.8rem;
+      color: #6b7280;
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+
+    .pricing-faq {
+      margin-top: 3rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .pricing-faq h3 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .pricing-faq details {
+      margin-bottom: 1rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.5rem;
+      padding: 1rem;
+    }
+
+    .pricing-faq summary {
+      font-weight: 500;
+      cursor: pointer;
+      margin-bottom: 0.5rem;
+    }
+
+    .pricing-faq details[open] summary {
+      margin-bottom: 1rem;
+    }
+
+    .payment-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .payment-modal.hidden {
+      display: none;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 0.5rem;
+      max-width: 400px;
+      width: 90%;
+      overflow: hidden;
+    }
+
+    .modal-header {
+      padding: 1rem;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      padding: 2rem;
+    }
+
+    .payment-status {
+      text-align: center;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #f3f4f6;
+      border-top: 4px solid #3b82f6;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 </body>
 </html> 
