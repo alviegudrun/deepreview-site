@@ -140,7 +140,7 @@
     console.log('Price IDs configured:', PADDLE_CONFIG.products);
     
     // Global token definition
-    const PADDLE_CLIENT_TOKEN = 'test_a51b76865f253675ea5f91df48c';
+    const PADDLE_CLIENT_TOKEN = 'test_4b05d1a77a742bd77ffa74e3c30';
 
     // Initialize Paddle (token-based)
     document.addEventListener('DOMContentLoaded', function() {
@@ -226,91 +226,31 @@
         productId: PADDLE_CONFIG.products[plan]
       });
 
-      // Debug: Let's try the most basic configuration first
-      console.log('=== Attempting basic checkout ===');
-      console.log('Price ID:', PADDLE_CONFIG.products[plan]);
-      console.log('User email:', userEmail);
-      console.log('PADDLE_CONFIG:', PADDLE_CONFIG);
-      console.log('Token:', PADDLE_CLIENT_TOKEN);
+      // Configure Paddle checkout
+      Paddle.Checkout.open({
+        items: [{ priceId: PADDLE_CONFIG.products[plan], quantity: 1 }],
+        customer: { email: userEmail },
+        settings: {
+          displayMode: 'overlay',
+          theme: 'light',
+          allowLogout: false,
+          locale: 'en'
+        },
+        
+        // Custom data for webhook processing
+        customData: {
+          user_email: userEmail,
+          ...(userName && { user_name: userName }),
+          ...(userSub && { user_sub: userSub }),
+          plan: plan,
+          source: 'extension',
+          flow_id: flowId,
+          extension_version: '1.1.2',
+          timestamp: new Date().toISOString()
+        }
+      });
       
-      try {
-        // Try the most minimal configuration
-        Paddle.Checkout.open({
-          items: [{ priceId: PADDLE_CONFIG.products[plan], quantity: 1 }]
-        });
-        
-        console.log('✅ Basic checkout call made');
-        
-        // Check for errors after a delay
-        setTimeout(() => {
-          const errorElements = document.querySelectorAll('[class*="error"], [class*="Error"]');
-          if (errorElements.length > 0) {
-            console.log('❌ Error elements found:', errorElements);
-          }
-          
-          // Check iframe content
-          const iframe = document.querySelector('iframe[src*="paddle"]');
-          if (iframe) {
-            console.log('Iframe found:', iframe.src);
-            console.log('Iframe dimensions:', iframe.style.width, iframe.style.height);
-            
-            // Try to access iframe content (might be blocked by CORS)
-            try {
-              const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-              console.log('Iframe document:', iframeDoc);
-            } catch (e) {
-              console.log('Cannot access iframe content (CORS):', e.message);
-            }
-          }
-        }, 3000);
-        
-      } catch (error) {
-        console.error('❌ Checkout failed:', error);
-        
-        // Try alternative: PricePreview to test if token works at all
-        console.log('=== Testing token with PricePreview ===');
-        console.log('Testing price ID:', PADDLE_CONFIG.products[plan]);
-        
-        const pricePreviewPromise = Paddle.PricePreview({
-          items: [{ priceId: PADDLE_CONFIG.products[plan], quantity: 1 }]
-        });
-        
-        // Add timeout to PricePreview
-        const timeoutPromise = new Promise((_, reject) => {
-          setTimeout(() => reject(new Error('PricePreview timeout after 10 seconds')), 10000);
-        });
-        
-        Promise.race([pricePreviewPromise, timeoutPromise]).then(result => {
-          console.log('✅ PricePreview works - token is valid:', result);
-          console.log('Price details:', result.data);
-          console.log('Issue might be with checkout-specific permissions or price configuration');
-          
-          // If PricePreview works, try checkout again with more debugging
-          console.log('=== Retry checkout with customer email ===');
-          Paddle.Checkout.open({
-            items: [{ priceId: PADDLE_CONFIG.products[plan], quantity: 1 }],
-            customer: { email: userEmail }
-          });
-          
-        }).catch(previewError => {
-          console.error('❌ PricePreview failed - token or price issue:', previewError);
-          console.log('Error details:', previewError);
-          
-          // Check if it's a price ID issue
-          if (previewError.message && previewError.message.includes('price')) {
-            console.log('🔍 Price ID issue detected. Checking both price IDs...');
-            
-            // Test yearly price ID
-            Paddle.PricePreview({
-              items: [{ priceId: PADDLE_CONFIG.products.yearly, quantity: 1 }]
-            }).then(yearlyResult => {
-              console.log('✅ Yearly price ID works:', yearlyResult);
-            }).catch(yearlyError => {
-              console.error('❌ Yearly price ID also fails:', yearlyError);
-            });
-          }
-        });
-      }
+      console.log('✅ Paddle checkout opened successfully');
     }
 
     function showPaymentModal() {
