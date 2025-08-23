@@ -147,6 +147,10 @@
       if (typeof Paddle !== 'undefined') {
         const env = PADDLE_CLIENT_TOKEN.startsWith('live_') ? 'production' : 'sandbox';
         try {
+          // Ensure sandbox environment per docs when using sandbox accounts
+          if (env === 'sandbox' && Paddle.Environment && typeof Paddle.Environment.set === 'function') {
+            Paddle.Environment.set('sandbox');
+          }
           Paddle.Initialize({
             token: PADDLE_CLIENT_TOKEN
           });
