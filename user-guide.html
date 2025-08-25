@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>User Guide – DeepReview</title>
+  <meta name="description" content="Complete user guide for DeepReview AI-powered code and documentation review extension.">
+  <link rel="icon" type="image/svg+xml" href="../icons/icon.svg">
+  <link rel="shortcut icon" href="../icons/icon.svg">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/user-guide.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">DeepReview</a>
+      <nav class="nav">
+        <a href="pricing.html">Pricing</a>
+        <a href="terms.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a class="btn btn-primary" href="pricing.html">Get Started</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="guide-container">
+    <!-- Sidebar Navigation -->
+    <aside class="guide-sidebar">
+      <div class="sidebar-header">
+        <h3>User Guide</h3>
+        <div class="guide-controls">
+          <button id="langToggle" class="btn btn-ghost btn-sm" title="Switch Language">
+            <span id="langIcon">🌐</span>
+            <span id="langText">中文</span>
+          </button>
+          <button id="themeToggle" class="btn btn-ghost btn-sm" title="Toggle Theme">
+            <span id="themeIcon">🌙</span>
+          </button>
+        </div>
+      </div>
+      
+      <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search guide..." class="search-input">
+        <div class="search-icon">🔍</div>
+      </div>
+      
+      <nav class="guide-nav" id="guideNav">
+        <!-- Navigation will be populated by JavaScript -->
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="guide-content">
+      <div class="content-header">
+        <div class="breadcrumb" id="breadcrumb">
+          <!-- Breadcrumb will be populated by JavaScript -->
+        </div>
+        <div class="content-actions">
+          <button id="printBtn" class="btn btn-ghost btn-sm" title="Print">📄</button>
+          <button id="shareBtn" class="btn btn-ghost btn-sm" title="Share">🔗</button>
+        </div>
+      </div>
+      
+      <article class="guide-article" id="guideArticle">
+        <!-- Content will be populated by JavaScript -->
+        <div class="loading">
+          <div class="spinner"></div>
+          <p>Loading user guide...</p>
+        </div>
+      </article>
+      
+      <footer class="content-footer">
+        <div class="nav-pagination">
+          <button id="prevBtn" class="btn btn-ghost" disabled>
+            <span>←</span> Previous
+          </button>
+          <button id="nextBtn" class="btn btn-ghost">
+            Next <span>→</span>
+          </button>
+        </div>
+        
+        <div class="content-meta">
+          <p class="muted">
+            Last updated: <span id="lastUpdated">Loading...</span>
+          </p>
+          <p class="muted">
+            Found an issue? <a href="mailto:support@deepreview.cloud">Let us know</a>
+          </p>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script src="assets/user-guide.js"></script>
+</body>
+</html> 
