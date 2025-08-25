@@ -20,7 +20,6 @@ class UserGuideApp {
     this.renderNavigation();
     this.showSection(this.currentSection);
     this.updateLanguageToggle();
-    this.setupSearch();
     this.updateLastUpdated();
   }
 
@@ -52,7 +51,6 @@ class UserGuideApp {
         zh: this.getStaticZhContent()
       };
       
-      this.buildSearchIndex();
     } catch (error) {
       console.error('Failed to load guide data:', error);
       this.showError();
@@ -275,74 +273,7 @@ class UserGuideApp {
       .replace(/\n+/g, '\n');
   }
 
-  buildSearchIndex() {
-    this.searchIndex = [];
-    
-    ['en', 'zh'].forEach(lang => {
-      const data = this.guideData[lang];
-      Object.keys(data).forEach(sectionKey => {
-        const section = data[sectionKey];
-        const plainText = section.content
-          .replace(/[#*`\[\]()]/g, '')
-          .replace(/\n+/g, ' ')
-          .toLowerCase();
-        
-        this.searchIndex.push({
-          lang,
-          section: sectionKey,
-          title: section.title,
-          content: plainText
-        });
-      });
-    });
-  }
 
-  setupSearch() {
-    const searchInput = document.getElementById('searchInput');
-    let searchTimeout;
-    
-    searchInput.addEventListener('input', (e) => {
-      clearTimeout(searchTimeout);
-      searchTimeout = setTimeout(() => {
-        this.performSearch(e.target.value);
-      }, 300);
-    });
-  }
-
-  performSearch(query) {
-    if (!query.trim()) {
-      this.clearSearchHighlight();
-      return;
-    }
-    
-    const results = this.searchIndex
-      .filter(item => item.lang === this.currentLang)
-      .filter(item => 
-        item.title.toLowerCase().includes(query.toLowerCase()) ||
-        item.content.includes(query.toLowerCase())
-      )
-      .slice(0, 5);
-    
-    if (results.length > 0) {
-      // Highlight matching sections in navigation
-      document.querySelectorAll('.nav-section-title').forEach(el => {
-        el.classList.remove('search-match');
-      });
-      
-      results.forEach(result => {
-        const navItem = document.querySelector(`[data-section="${result.section}"]`);
-        if (navItem) {
-          navItem.classList.add('search-match');
-        }
-      });
-    }
-  }
-
-  clearSearchHighlight() {
-    document.querySelectorAll('.nav-section-title').forEach(el => {
-      el.classList.remove('search-match');
-    });
-  }
 
   updateLanguageToggle() {
     const langText = document.getElementById('langText');
@@ -778,10 +709,6 @@ DeepReview 提供全面的规则集：
     document.addEventListener('keydown', (e) => {
       if (e.ctrlKey || e.metaKey) {
         switch (e.key) {
-          case 'k':
-            e.preventDefault();
-            document.getElementById('searchInput').focus();
-            break;
           case 'p':
             e.preventDefault();
             window.print();
@@ -820,14 +747,9 @@ document.addEventListener('DOMContentLoaded', () => {
   new UserGuideApp();
 });
 
-// Add search highlight styles
+// Add additional styles
 const style = document.createElement('style');
 style.textContent = `
-  .nav-section-title.search-match {
-    background: rgba(106, 161, 255, 0.2) !important;
-    border-left: 3px solid var(--brand);
-  }
-  
   .error-state {
     text-align: center;
     padding: 60px 20px;
