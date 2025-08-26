@@ -448,7 +448,7 @@ Experience the full functionality of DeepReview through these steps:
 First, configure your AI provider settings and select the appropriate model and API.
 
 <div class="operation-step">
-  <img src="assets/images/step1-settings.png" alt="Configure AI Provider" class="step-image" />
+  <img src="./assets/images/step1-settings.png" alt="Configure AI Provider" class="step-image" />
   <p class="step-description">Select your AI provider (such as Deepseek) in the settings interface, configure model parameters and API key. The system will automatically test the connection to ensure proper configuration.</p>
 </div>
 
@@ -456,7 +456,7 @@ First, configure your AI provider settings and select the appropriate model and 
 Import the code files that need to be reviewed into the system.
 
 <div class="operation-step">
-  <img src="assets/images/step2-import-files.png" alt="Import Files" class="step-image" />
+  <img src="./assets/images/step2-import-files.png" alt="Import Files" class="step-image" />
   <p class="step-description">Click "Import Files" to import Python files. The system supports multiple programming languages and will automatically identify file types and display code content.</p>
 </div>
 
@@ -464,7 +464,7 @@ Import the code files that need to be reviewed into the system.
 Choose appropriate predefined rule sets based on your code type.
 
 <div class="operation-step">
-  <img src="assets/images/step3-select-rules.png" alt="Select Rules" class="step-image" />
+  <img src="./assets/images/step3-select-rules.png" alt="Select Rules" class="step-image" />
   <p class="step-description">Click "Import Rules" to select code review rules. The system provides various predefined rule sets including code style, security checks, performance optimization, etc.</p>
 </div>
 
@@ -472,7 +472,7 @@ Choose appropriate predefined rule sets based on your code type.
 Launch the AI review process and wait for analysis completion.
 
 <div class="operation-step">
-  <img src="assets/images/step4-start-review.png" alt="Start Review" class="step-image" />
+  <img src="./assets/images/step4-start-review.png" alt="Start Review" class="step-image" />
   <p class="step-description">Click "Start Review" to begin the review process. The system displays a progress bar as AI analyzes each selected rule and generates a detailed review report.</p>
 </div>
 
@@ -480,7 +480,7 @@ Launch the AI review process and wait for analysis completion.
 Get detailed AI review reports and improvement suggestions.
 
 <div class="operation-step">
-  <img src="assets/images/step5-view-results.png" alt="View Results" class="step-image" />
+  <img src="./assets/images/step5-view-results.png" alt="View Results" class="step-image" />
   <p class="step-description">After review completion, the right panel displays detailed findings and improvement suggestions. Each issue includes specific code locations, problem descriptions, and solutions.</p>
 </div>
 
@@ -488,7 +488,7 @@ Get detailed AI review reports and improvement suggestions.
 Make appropriate modifications and optimizations to your code based on AI suggestions.
 
 <div class="operation-step">
-  <img src="assets/images/step6-handle-suggestions.png" alt="Handle Suggestions" class="step-image" />
+  <img src="./assets/images/step6-handle-suggestions.png" alt="Handle Suggestions" class="step-image" />
   <p class="step-description">You can accept, reject, or mark suggestions as pending. The system supports exporting review reports for convenient team collaboration and code improvement tracking.</p>
 </div>
 
@@ -788,7 +788,7 @@ DeepReview 是一个高度灵活的 AI 驱动的审查工具，支持预定义�
 首先需要配置您的 AI 供应商设置，选择合适的模型和 API。
 
 <div class="operation-step">
-  <img src="assets/images/step1-settings.png" alt="配置 AI 供应商" class="step-image" />
+  <img src="./assets/images/step1-settings.png" alt="配置 AI 供应商" class="step-image" />
   <p class="step-description">在设置界面中选择 AI 供应商（如 Deepseek），配置模型参数和 API 密钥。系统会自动测试连接确保配置正确。</p>
 </div>
 
@@ -796,7 +796,7 @@ DeepReview 是一个高度灵活的 AI 驱动的审查工具，支持预定义�
 将需要审查的代码文件导入到系统中。
 
 <div class="operation-step">
-  <img src="assets/images/step2-import-files.png" alt="导入文件" class="step-image" />
+  <img src="./assets/images/step2-import-files.png" alt="导入文件" class="step-image" />
   <p class="step-description">点击"Import Files"按钮导入Python文件。系统支持多种编程语言，会自动识别文件类型并显示代码内容。</p>
 </div>
 
@@ -804,7 +804,7 @@ DeepReview 是一个高度灵活的 AI 驱动的审查工具，支持预定义�
 根据代码类型选择合适的预定义规则集。
 
 <div class="operation-step">
-  <img src="assets/images/step3-select-rules.png" alt="选择规则" class="step-image" />
+  <img src="./assets/images/step3-select-rules.png" alt="选择规则" class="step-image" />
   <p class="step-description">点击"Import Rules"选择代码审查规则。系统提供多种预定义规则集，包括代码风格、安全检查、性能优化等。</p>
 </div>
 
@@ -812,7 +812,7 @@ DeepReview 是一个高度灵活的 AI 驱动的审查工具，支持预定义�
 启动 AI 审查进程，等待分析完成。
 
 <div class="operation-step">
-  <img src="assets/images/step4-start-review.png" alt="开始审查" class="step-image" />
+  <img src="./assets/images/step4-start-review.png" alt="开始审查" class="step-image" />
   <p class="step-description">点击"Start Review"按钮开始审查。系统会显示进度条，AI会逐条分析选中的规则并生成详细的审查报告。</p>
 </div>
 
@@ -820,7 +820,7 @@ DeepReview 是一个高度灵活的 AI 驱动的审查工具，支持预定义�
 获得详细的 AI 审查报告和改进建议。
 
 <div class="operation-step">
-  <img src="assets/images/step5-view-results.png" alt="查看结果" class="step-image" />
+  <img src="./assets/images/step5-view-results.png" alt="查看结果" class="step-image" />
   <p class="step-description">审查完成后，右侧面板显示详细的发现问题和改进建议。每个问题都包含具体的代码位置、问题描述和解决方案。</p>
 </div>
 
@@ -828,7 +828,7 @@ DeepReview 是一个高度灵活的 AI 驱动的审查工具，支持预定义�
 根据 AI 建议对代码进行相应的修改和优化。
 
 <div class="operation-step">
-  <img src="assets/images/step6-handle-suggestions.png" alt="处理建议" class="step-image" />
+  <img src="./assets/images/step6-handle-suggestions.png" alt="处理建议" class="step-image" />
   <p class="step-description">可以接受、拒绝或标记为待处理状态。系统支持导出审查报告，方便团队协作和代码改进跟踪。</p>
 </div>
 
