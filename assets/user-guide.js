@@ -117,6 +117,7 @@ class UserGuideApp {
     
     const navSections = [
       { key: 'scenarios', icon: '🎯', title: this.currentLang === 'zh' ? '应用场景' : 'Application Scenarios' },
+      { key: 'customRules', icon: '📝', title: this.currentLang === 'zh' ? '自定义规则' : 'Custom Rules' },
       { key: 'providers', icon: '🔗', title: this.currentLang === 'zh' ? 'AI供应商配置' : 'AI Provider Setup' },
       { key: 'basic', icon: '⚙️', title: this.currentLang === 'zh' ? '基础功能' : 'Basic Functions' },
       { key: 'advanced', icon: '🚀', title: this.currentLang === 'zh' ? '高级功能' : 'Advanced Features' },
@@ -494,6 +495,85 @@ Make appropriate modifications and optimizations to your code based on AI sugges
 
 `
       },
+      customRules: {
+        title: '📝 Custom Rules',
+        content: `## 📝 Custom Rules
+
+DeepReview allows you to create and import custom rules tailored to your specific needs. Custom rules enable you to enforce coding standards, business logic, compliance requirements, and domain-specific validations that go beyond standard code quality checks.
+
+### 🎯 Use Cases for Custom Rules
+
+#### **1. System Requirements Validation**
+After breaking down system requirements into detailed specifications, create custom rules to verify:
+
+- **Feature Implementation Completeness**: Ensure all required functionality is implemented
+- **Business Logic Accuracy**: Validate that code correctly implements business rules
+- **Interface Compliance**: Check API endpoints match specifications
+- **Data Flow Validation**: Verify proper data handling and transformation
+
+#### **2. Content Compliance & Moderation**
+For platforms handling user-generated content or community interactions:
+
+- **Community Guidelines**: Check posts, comments for policy violations
+- **Content Standards**: Validate formatting, language appropriateness
+- **Regulatory Compliance**: Ensure content meets legal requirements (GDPR, accessibility, etc.)
+- **Brand Guidelines**: Verify content aligns with company standards
+
+#### **3. Team-Specific Standards**
+
+- **Architecture Patterns**: Enforce specific design patterns or frameworks
+- **Security Protocols**: Check for custom security implementations
+- **Performance Requirements**: Validate against specific performance criteria
+- **Documentation Standards**: Ensure proper code documentation and comments
+
+### ✍️ Creating Custom Rules
+
+Custom rules use a simple *.txt format with categories and rule definitions:
+
+<div class="operation-step">
+  <img src="./assets/images/self-rule-syntax.png" alt="Custom Rule Syntax" class="step-image" />
+  <p class="step-description">Use <code>#</code> for categories and <code>##</code> for rule titles. Each rule can contain multiple validation points and detailed instructions.</p>
+</div>
+
+
+### 📥 Importing Custom Rules
+
+1. **Import Process**: Use the "Import Rules" button in DeepReview
+2. **Review & Select**: Choose which rules to activate for your review
+3. **Apply & Test**: Run reviews using your custom rules
+
+<div class="operation-step">
+  <img src="./assets/images/self-rule-display.png" alt="Custom Rules Display" class="step-image" />
+  <p class="step-description">After importing, your custom rules appear in the rules panel where you can select, organize, and apply them to your code or document reviews.</p>
+</div>
+
+### 🔧 Best Practices
+
+#### **Writing Effective Rules:**
+
+- **Be Specific**: Clearly define what to check and expected outcomes
+- **Include Examples**: Provide code samples or scenarios when possible
+- **Use Clear Language**: Write rules that AI can understand and apply consistently
+- **Test Iteratively**: Start with simple rules and refine based on results
+
+#### **Rule Organization:**
+
+- **Logical Grouping**: Group related rules under meaningful categories
+- **Priority Levels**: Consider rule importance when organizing
+- **Regular Updates**: Maintain and update rules as requirements evolve
+- **Team Collaboration**: Share and review rule sets with your team
+
+### 💡 Advanced Applications
+
+- **CI/CD Integration**: Use custom rules in automated build processes
+- **Code Review Automation**: Apply rules during pull request reviews
+- **Compliance Auditing**: Regular validation against regulatory requirements
+- **Quality Gates**: Enforce custom rules as release criteria
+
+Custom rules transform DeepReview from a general-purpose tool into a specialized validation system tailored to your exact requirements and workflows.
+
+`
+      },
       providers: {
         title: '🔗 AI Provider Setup',
         content: `## 🔗 AI Provider Setup
@@ -766,8 +846,8 @@ We value your feedback! Help us improve DeepReview by sharing your experience an
   getStaticZhContent() {
     return {
       scenarios: {
-        title: '🎯 代码检视',
-        content: `## 🎯 代码检视
+        title: '🎯 应用场景',
+        content: `## 🎯 应用场景
 
 DeepReview 是一个高度灵活的 AI 驱动的审查工具，支持预定义和自定义规则。
 - **错误检测**：语法错误、逻辑错误、潜在运行时错误
@@ -831,6 +911,85 @@ DeepReview 是一个高度灵活的 AI 驱动的审查工具，支持预定义�
   <img src="./assets/images/step6-handle-suggestions.png" alt="处理建议" class="step-image" />
   <p class="step-description">可以接受、拒绝或标记为待处理状态。系统支持导出审查报告，方便团队协作和代码改进跟踪。</p>
 </div>
+
+`
+      },
+      customRules: {
+        title: '📝 自定义规则',
+        content: `## 📝 自定义规则
+
+DeepReview 允许您创建和导入针对特定需求的自定义规则。自定义规则能够帮您执行编码标准、业务逻辑、合规要求以及超越标准代码质量检查的领域特定验证。
+
+### 🎯 自定义规则应用场景
+
+#### **1. 系统需求验证**
+在将系统需求分解为详细规格后，创建自定义规则来验证：
+
+- **功能实现完整性**：确保所有必需功能都已实现
+- **业务逻辑准确性**：验证代码正确实现业务规则  
+- **接口合规性**：检查API端点是否符合规范
+- **数据流验证**：验证正确的数据处理和转换
+
+#### **2. 内容合规性与审核**
+针对处理用户生成内容或社区交互的平台：
+
+- **社区准则**：检查帖子、评论是否违反政策
+- **内容标准**：验证格式化、语言适当性
+- **法规合规**：确保内容符合法律要求（GDPR、无障碍访问等）
+- **品牌准则**：验证内容符合公司标准
+
+#### **3. 团队特定标准**
+
+- **架构模式**：强制执行特定设计模式或框架
+- **安全协议**：检查自定义安全实现
+- **性能要求**：根据特定性能标准进行验证
+- **文档标准**：确保适当的代码文档和注释
+
+### ✍️ 创建自定义规则
+
+自定义规则使用简单的 \`.txt\` 文件，包含分类和规则定义：
+
+<div class="operation-step">
+  <img src="./assets/images/self-rule-syntax.png" alt="自定义规则语法" class="step-image" />
+  <p class="step-description">使用 <code>#</code> 表示分类，<code>##</code> 表示规则标题。每个规则可以包含多个验证点和详细说明。</p>
+</div>
+
+
+### 📥 导入自定义规则
+
+1. **导入过程**：在 DeepReview 中使用"导入规则"按钮
+2. **审查和选择**：选择要激活的规则进行审查
+3. **应用和测试**：使用您的自定义规则运行审查
+
+<div class="operation-step">
+  <img src="./assets/images/self-rule-display.png" alt="自定义规则显示" class="step-image" />
+  <p class="step-description">导入后，您的自定义规则会出现在规则面板中，您可以选择、组织并将它们应用到代码或文档审查中。</p>
+</div>
+
+### 🔧 最佳实践
+
+#### **编写有效规则：**
+
+- **具体明确**：清楚定义要检查的内容和预期结果
+- **包含示例**：尽可能提供代码示例或场景
+- **使用清晰语言**：编写AI能够理解并一致应用的规则
+- **迭代测试**：从简单规则开始，根据结果进行完善
+
+#### **规则组织：**
+
+- **逻辑分组**：在有意义的分类下分组相关规则
+- **优先级别**：组织时考虑规则重要性
+- **定期更新**：随着需求演变维护和更新规则
+- **团队协作**：与团队共享和审查规则集
+
+### 💡 高级应用
+
+- **CI/CD集成**：在自动化构建过程中使用自定义规则
+- **代码审查自动化**：在拉取请求审查期间应用规则
+- **合规审计**：定期根据法规要求进行验证
+- **质量门槛**：将自定义规则作为发布标准强制执行
+
+自定义规则将 DeepReview 从通用工具转变为专门针对您确切要求和工作流程的专业验证系统。
 
 `
       },
