@@ -727,7 +727,7 @@ You can also run AI models locally using **Ollama** and connect them to DeepRevi
 
 | Feature | Free Version | Pro Version |
 |---------|-------------|-------------|
-| File Analysis | ✅ Unlimited | ✅ Unlimited |
+| File Analysis | ✅ Multi files | ✅ Multi files |
 | All AI Providers | ✅ All supported | ✅ All supported |
 | Predefined Rules | ✅ All rule sets | ✅ All rule sets |
 | Multi-File Analysis | ✅ Supported | ✅ Supported |
@@ -1067,7 +1067,7 @@ DeepReview 支持多个 AI 供应商，您可以选择最适合您需求和预�
 
 | 功能 | 免费版 | Pro版 |
 |------|--------|-------|
-| 文件分析 | ✅ 无限制 | ✅ 无限制 |
+| 文件分析 | ✅ 多个文件 | ✅ 多个文件 |
 | 所有AI供应商 | ✅ 全部支持 | ✅ 全部支持 |
 | 预定义规则 | ✅ 所有规则集 | ✅ 所有规则集 |
 | 多文件分析 | ✅ 支持 | ✅ 支持 |
