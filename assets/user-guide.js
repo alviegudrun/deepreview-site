@@ -784,8 +784,7 @@ You can also run AI models locally using **Ollama** and connect them to DeepRevi
 ### Security Features
 
 - Secure API key storage
-- Local processing options
-- No data transmission to third parties`
+- Local processing options`
       },
       subscription: {
         title: '💎 Subscription Policy',
@@ -1203,8 +1202,7 @@ DeepReview 支持多个 AI 供应商，您可以选择最适合您需求和预�
 ### 安全功能
 
 - 安全的 API 密钥存储
-- 本地处理选项
-- 不向第三方传输数据`
+- 本地处理选项`
       },
       subscription: {
         title: '💎 订阅政策',
