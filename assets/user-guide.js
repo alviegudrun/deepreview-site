@@ -1289,20 +1289,6 @@ DeepReview 支持多个 AI 供应商，您可以选择最适合您需求和预�
       window.print();
     });
     
-    // Share
-    document.getElementById('shareBtn').addEventListener('click', () => {
-      if (navigator.share) {
-        navigator.share({
-          title: 'DeepReview User Guide',
-          url: window.location.href
-        });
-      } else {
-        navigator.clipboard.writeText(window.location.href).then(() => {
-          alert('Link copied to clipboard!');
-        });
-      }
-    });
-    
     // Mobile menu (if needed)
     this.setupMobileMenu();
     
