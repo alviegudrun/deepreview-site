@@ -584,16 +584,16 @@ DeepReview supports multiple AI providers. Choose the one that best fits your ne
 
 | Provider | Models | Context Length | Official Website |
 |----------|---------|----------------|------------------|
-| **OpenAI** | GPT-4o, GPT-4o-mini, GPT-4 Turbo, GPT-3.5 Turbo | 4K - 128K tokens | [openai.com](https://openai.com) |
-| **Anthropic Claude** | Claude-3.5 Sonnet, Claude-3 Opus, Claude-3 Haiku | 200K tokens | [anthropic.com](https://anthropic.com) |
-| **Google Gemini** | Gemini-1.5 Pro, Gemini-1.5 Flash, Gemini Pro | 1M - 2M tokens | [ai.google.dev](https://ai.google.dev) |
-| **DeepSeek** | DeepSeek-Chat, DeepSeek-Coder | 32K tokens | [deepseek.com](https://deepseek.com) |
-| **Moonshot (Kimi)** | Moonshot-v1-8k, Moonshot-v1-32k, Moonshot-v1-128k | 8K - 200K tokens | [moonshot.cn](https://moonshot.cn) |
-| **Alibaba Qwen** | Qwen-Turbo, Qwen-Plus, Qwen-Max | 6K - 30K tokens | [bailian.console.aliyun.com](https://bailian.console.aliyun.com) |
-| **Baidu ERNIE** | ERNIE-4.0, ERNIE-3.5, ERNIE-Bot-turbo | 5K - 20K tokens | [cloud.baidu.com](https://cloud.baidu.com) |
-| **Tencent Hunyuan** | Hunyuan-Pro, Hunyuan-Standard, Hunyuan-Lite | 32K tokens | [cloud.tencent.com](https://cloud.tencent.com) |
-| **ByteDance Doubao** | Doubao-pro-32k, Doubao-lite-4k | 4K - 32K tokens | [volcengine.com](https://volcengine.com) |
-| **xAI Grok** | Grok-2, Grok-2-mini | 131K tokens | [x.ai](https://x.ai) |
+| **OpenAI** | GPT-4.1, GPT-4.1-mini, o3-mini, GPT-5, GPT-5-min, GPT-5-nano | 128K - 200K tokens | [platform.openai.com](https://platform.openai.com) |
+| **xAI Grok** | Grok-3, Grok-3-mini, Grok-4 | 200K - 1.7M tokens | [x.ai](https://x.ai) |
+| **Anthropic Claude** | Claude-3.5 Sonnet, Claude-3.5 Haiku, Claude-3.7 Sonnet, Claude-Opus-4, Claude-Sonnet-4, Claude-Opus-4.1 | 200K tokens | [console.anthropic.com](https://console.anthropic.com) |
+| **DeepSeek** | DeepSeek-Chat, DeepSeek-Reasoner | 32K tokens | [platform.deepseek.com](https://platform.deepseek.com) |
+| **Google Gemini** | Gemini-1.5 Pro, Gemini-1.5 Flash, Gemini-2.5 Pro, Gemini-2.5 Flash | 32K - 1M tokens | [ai.google.dev](https://ai.google.dev) |
+| **Alibaba Qwen** | Qwen-Max, Qwen-Plus, Qwen-Turbo | 131K tokens | [dashscope.aliyuncs.com](https://dashscope.aliyuncs.com) |
+| **Moonshot (Kimi)** | Moonshot-v1-8k, Moonshot-v1-32k, Moonshot-v1-128k | 8K - 131K tokens | [platform.moonshot.cn](https://platform.moonshot.cn) |
+| **OpenAI Compatible** | Support for local models and custom APIs | Varies by provider | Various (Ollama, vLLM, LM Studio, etc.) |
+
+> **Note about OpenAI Compatible**: If your preferred AI provider is not listed above, you can try connecting through the "OpenAI Compatible" option. Many AI providers and local model servers (like Ollama, vLLM, LM Studio, Text Generation WebUI, etc.) support OpenAI-compatible APIs. Simply select "OpenAI Compatible" as your provider, enter the appropriate API endpoint URL, and use your provider's API key.
 
 ### 🔧 Configuration Steps
 
@@ -1002,16 +1002,16 @@ DeepReview 支持多个 AI 供应商，您可以选择最适合您需求和预�
 
 | 供应商 | 模型 | 上下文长度 | 官方网站 |
 |--------|------|------------|----------|
-| **OpenAI** | GPT-4o, GPT-4o-mini, GPT-4 Turbo, GPT-3.5 Turbo | 4K - 128K tokens | [openai.com](https://openai.com) |
-| **Anthropic Claude** | Claude-3.5 Sonnet, Claude-3 Opus, Claude-3 Haiku | 200K tokens | [anthropic.com](https://anthropic.com) |
-| **Google Gemini** | Gemini-1.5 Pro, Gemini-1.5 Flash, Gemini Pro | 1M - 2M tokens | [ai.google.dev](https://ai.google.dev) |
-| **DeepSeek** | DeepSeek-Chat, DeepSeek-Coder | 32K tokens | [deepseek.com](https://deepseek.com) |
-| **月之暗面 (Kimi)** | Moonshot-v1-8k, Moonshot-v1-32k, Moonshot-v1-128k | 8K - 200K tokens | [moonshot.cn](https://moonshot.cn) |
-| **阿里云通义千问** | Qwen-Turbo, Qwen-Plus, Qwen-Max | 6K - 30K tokens | [bailian.console.aliyun.com](https://bailian.console.aliyun.com) |
-| **百度文心一言** | ERNIE-4.0, ERNIE-3.5, ERNIE-Bot-turbo | 5K - 20K tokens | [cloud.baidu.com](https://cloud.baidu.com) |
-| **腾讯混元** | Hunyuan-Pro, Hunyuan-Standard, Hunyuan-Lite | 32K tokens | [cloud.tencent.com](https://cloud.tencent.com) |
-| **字节跳动豆包** | Doubao-pro-32k, Doubao-lite-4k | 4K - 32K tokens | [volcengine.com](https://volcengine.com) |
-| **xAI Grok** | Grok-2, Grok-2-mini | 131K tokens | [x.ai](https://x.ai) |
+| **OpenAI** | GPT-4.1, GPT-4.1-mini, o3-mini, GPT-5, GPT-5-min, GPT-5-nano | 128K - 200K tokens | [platform.openai.com](https://platform.openai.com) |
+| **xAI Grok** | Grok-3, Grok-3-mini, Grok-4 | 200K - 1.7M tokens | [x.ai](https://x.ai) |
+| **Anthropic Claude** | Claude-3.5 Sonnet, Claude-3.5 Haiku, Claude-3.7 Sonnet, Claude-Opus-4, Claude-Sonnet-4, Claude-Opus-4.1 | 200K tokens | [console.anthropic.com](https://console.anthropic.com) |
+| **DeepSeek** | DeepSeek-Chat, DeepSeek-Reasoner | 32K tokens | [platform.deepseek.com](https://platform.deepseek.com) |
+| **Google Gemini** | Gemini-1.5 Pro, Gemini-1.5 Flash, Gemini-2.5 Pro, Gemini-2.5 Flash | 32K - 1M tokens | [ai.google.dev](https://ai.google.dev) |
+| **阿里云通义千问** | Qwen-Max, Qwen-Plus, Qwen-Turbo | 131K tokens | [dashscope.aliyuncs.com](https://dashscope.aliyuncs.com) |
+| **月之暗面 (Kimi)** | Moonshot-v1-8k, Moonshot-v1-32k, Moonshot-v1-128k | 8K - 131K tokens | [platform.moonshot.cn](https://platform.moonshot.cn) |
+| **OpenAI兼容** | 支持本地模型和自定义API | 因供应商而异 | 多种（Ollama、vLLM、LM Studio等） |
+
+> **关于OpenAI兼容模式**: 如果您希望使用的AI供应商不在上述列表中，可以尝试通过"OpenAI兼容"选项进行连接。许多AI供应商和本地模型服务器（如Ollama、vLLM、LM Studio、Text Generation WebUI等）都支持OpenAI兼容的API接口。只需选择"OpenAI兼容"作为您的供应商，输入相应的API端点URL，并使用您的供应商API密钥即可。
 
 ### 🔧 配置步骤
 
