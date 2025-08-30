@@ -123,6 +123,7 @@ class UserGuideApp {
       { key: 'advanced', icon: '🚀', title: this.currentLang === 'zh' ? '高级功能' : 'Advanced Features' },
       { key: 'privacy', icon: '🔒', title: this.currentLang === 'zh' ? '隐私与安全' : 'Privacy & Security' },
       { key: 'subscription', icon: '💎', title: this.currentLang === 'zh' ? '订阅政策' : 'Subscription Policy' },
+      { key: 'legal', icon: '⚖️', title: this.currentLang === 'zh' ? '法律声明与免责' : 'Legal & Disclaimers' },
       { key: 'support', icon: '📞', title: this.currentLang === 'zh' ? '支持与反馈' : 'Support & Feedback' }
     ];
     
@@ -565,8 +566,6 @@ Custom rules use a simple *.txt format with categories and rule definitions:
 
 ### 💡 Advanced Applications
 
-- **CI/CD Integration**: Use custom rules in automated build processes
-- **Code Review Automation**: Apply rules during pull request reviews
 - **Compliance Auditing**: Regular validation against regulatory requirements
 - **Quality Gates**: Enforce custom rules as release criteria
 
@@ -592,6 +591,8 @@ DeepReview supports multiple AI providers. Choose the one that best fits your ne
 | **Alibaba Qwen** | Qwen-Max, Qwen-Plus, Qwen-Turbo | 131K tokens | [dashscope.aliyuncs.com](https://dashscope.aliyuncs.com) |
 | **Moonshot (Kimi)** | Moonshot-v1-8k, Moonshot-v1-32k, Moonshot-v1-128k | 8K - 131K tokens | [platform.moonshot.cn](https://platform.moonshot.cn) |
 | **OpenAI Compatible** | Support for local models and custom APIs | Varies by provider | Various (Ollama, vLLM, LM Studio, etc.) |
+
+> **Important Disclaimer**: DeepReview is an independent third-party tool and has no official partnership, affiliation, or endorsement from any of the AI providers listed above. Users must obtain their own API keys directly from the respective providers and comply with each provider's terms of service. DeepReview simply provides a convenient interface to connect to these services using your personal API credentials.
 
 > **Note about OpenAI Compatible**: If your preferred AI provider is not listed above, you can try connecting through the "OpenAI Compatible" option. Many AI providers and local model servers (like Ollama, vLLM, LM Studio, Text Generation WebUI, etc.) support OpenAI-compatible APIs. Simply select "OpenAI Compatible" as your provider, enter the appropriate API endpoint URL, and use your provider's API key.
 
@@ -664,7 +665,7 @@ You can also run AI models locally using **Ollama** and connect them to DeepRevi
 
 #### 📄 Response Format Issues
 
-1. Reduce the context window setting
+1. Reduce the context window setting (remember: DeepReview uses character count, not tokens)
 2. Break large files into smaller chunks
 3. Limit the amount of text per request
 4. Use models with larger context limits
@@ -700,7 +701,7 @@ You can also run AI models locally using **Ollama** and connect them to DeepRevi
 | **API URL** | Custom API endpoint | Auto-filled by provider | Required only for OpenAI Compatible |
 | **API Key** | Authentication credential | User-provided | Encrypted locally, never shared with servers |
 | **Output Length** | AI response token limit | 4000 tokens (100-8000 recommended) | Too small = truncated; too large = rejected |
-| **Context Window** | Input token limit per request | 32768 tokens | Auto-splits when exceeded; rarely needs adjustment |
+| **Context Window** | Input character limit per request | 32768 characters | Auto-splits when exceeded; adjust based on API provider token limits |
 | **Connection Test** | Verify API configuration | Test button | Validates settings before use |
 
 ### 📊 Analysis & Export Settings
@@ -719,7 +720,14 @@ You can also run AI models locally using **Ollama** and connect them to DeepRevi
 - **For Large Files**: Use providers with large context windows (Gemini 2M, Claude 200K, Kimi 128K)
 - **For Cost Efficiency**: Consider GPT-4o-mini, DeepSeek, or local models via OpenAI Compatible
 - **For Chinese Content**: Qwen, ERNIE, Hunyuan, or Doubao provide better Chinese understanding
-- **For Privacy**: Use local models via Ollama with OpenAI Compatible setting`
+- **For Privacy**: Use local models via Ollama with OpenAI Compatible setting
+
+### ⚠️ Important Notes
+
+**Context Window Setting:**
+- DeepReview splits files by **character count**, not token count
+- Setting too large may cause API failures due to token limits
+- If you experience API errors, try reducing the context window size`
       },
               advanced: {
           title: '🚀 Advanced Features Configuration',
@@ -826,6 +834,42 @@ You can also run AI models locally using **Ollama** and connect them to DeepRevi
 
 - Cancel anytime, continue using until period ends
 - Automatic renewal (can be disabled)`
+      },
+      legal: {
+        title: '⚖️ Legal & Disclaimers',
+        content: `## ⚖️ Legal & Disclaimers
+
+### 🤖 AI Results Disclaimer
+
+**Important Notice**: All AI-generated review results and suggestions are provided for informational purposes only and should not be considered as professional advice or guaranteed solutions.
+
+- AI analysis results are **not guaranteed to be accurate or complete**
+- Users must **independently verify all AI suggestions** before implementation
+- DeepReview **does not warrant the correctness** of any AI-generated content
+- Users are **solely responsible** for any decisions made based on AI output
+- AI models may produce **false positives, false negatives, or incorrect recommendations**
+
+**Recommendation**: Always use human judgment and expertise when evaluating AI suggestions. Treat AI output as a helpful starting point for further investigation, not as definitive guidance.
+
+### 🛡️ Third-Party Services
+
+DeepReview integrates with various third-party AI services. Users are responsible for:
+
+- Complying with each AI provider's terms of service
+- Managing their own API usage and costs
+- Understanding the limitations of each AI model
+- Protecting their API keys and credentials
+
+### 📜 Open Source Components
+
+This software includes the following open source components:
+- **Monaco Editor** - Microsoft Corporation (MIT License)
+- **Mammoth.js** - Michael Williamson (BSD 2-Clause License)
+
+
+### ⚠️ Limitation of Liability
+
+DeepReview and its developers shall not be liable for any direct, indirect, incidental, special, or consequential damages arising from the use of AI-generated content or this software.`
       },
       support: {
         title: '📞 Support & Feedback',
@@ -983,8 +1027,6 @@ DeepReview 允许您创建和导入针对特定需求的自定义规则。自定
 
 ### 💡 高级应用
 
-- **CI/CD集成**：在自动化构建过程中使用自定义规则
-- **代码审查自动化**：在拉取请求审查期间应用规则
 - **合规审计**：定期根据法规要求进行验证
 - **质量门槛**：将自定义规则作为发布标准强制执行
 
@@ -1010,6 +1052,8 @@ DeepReview 支持多个 AI 供应商，您可以选择最适合您需求和预�
 | **阿里云通义千问** | Qwen-Max, Qwen-Plus, Qwen-Turbo | 131K tokens | [dashscope.aliyuncs.com](https://dashscope.aliyuncs.com) |
 | **月之暗面 (Kimi)** | Moonshot-v1-8k, Moonshot-v1-32k, Moonshot-v1-128k | 8K - 131K tokens | [platform.moonshot.cn](https://platform.moonshot.cn) |
 | **OpenAI兼容** | 支持本地模型和自定义API | 因供应商而异 | 多种（Ollama、vLLM、LM Studio等） |
+
+> **重要免责声明**: DeepReview是独立的第三方工具，与上述任何AI供应商均无官方合作关系、关联关系或背书。用户必须直接从相应的供应商处获取自己的API密钥，并遵守各供应商的服务条款。DeepReview仅提供便捷的界面来连接这些服务，使用您的个人API凭据。
 
 > **关于OpenAI兼容模式**: 如果您希望使用的AI供应商不在上述列表中，可以尝试通过"OpenAI兼容"选项进行连接。许多AI供应商和本地模型服务器（如Ollama、vLLM、LM Studio、Text Generation WebUI等）都支持OpenAI兼容的API接口。只需选择"OpenAI兼容"作为您的供应商，输入相应的API端点URL，并使用您的供应商API密钥即可。
 
@@ -1082,7 +1126,7 @@ DeepReview 支持多个 AI 供应商，您可以选择最适合您需求和预�
 
 #### 📄 响应格式问题
 
-1. 减少上下文窗口设置
+1. 减少上下文窗口设置（注意：DeepReview 按字符数而非 token 数计算）
 2. 将大文件分解为较小的块
 3. 限制每次请求的文本量
 4. 使用上下文限制更大的模型
@@ -1118,7 +1162,7 @@ DeepReview 支持多个 AI 供应商，您可以选择最适合您需求和预�
 | **API URL** | 自定义API端点 | 根据供应商自动填充 | 仅OpenAI Compatible时必填 |
 | **API密钥** | 身份验证凭据 | 用户提供 | 本地加密存储，绝不与服务器共享 |
 | **输出长度** | AI响应token限制 | 4000 tokens (建议100-8000) | 太小会截断，太大会被拒绝 |
-| **上下文窗口** | 每请求输入token限制 | 32768 tokens | 超限时自动分片，通常无需调整 |
+| **上下文窗口** | 每请求输入字符限制 | 32768 字符 | 超限时自动分片，需根据API提供商token限制合理设置 |
 | **连接测试** | 验证API配置 | 测试按钮 | 使用前验证设置 |
 
 ### 📊 分析与导出设置
@@ -1137,7 +1181,15 @@ DeepReview 支持多个 AI 供应商，您可以选择最适合您需求和预�
 - **大文件处理**：使用大上下文窗口的供应商（Gemini 2M, Claude 200K, Kimi 128K）
 - **成本效益优先**：考虑 GPT-4o-mini, DeepSeek 或通过 OpenAI Compatible 的本地模型
 - **中文内容优化**：通义千问、文心一言、混元或豆包提供更好的中文理解
-- **隐私保护优先**：通过 Ollama 使用本地模型配合 OpenAI Compatible 设置`
+- **隐私保护优先**：通过 Ollama 使用本地模型配合 OpenAI Compatible 设置
+
+### ⚠️ 重要说明
+
+**上下文窗口设置：**
+
+- DeepReview 按**字符数**而非 token 数分片文件
+- 设置过大可能导致超出 token 限制而 API 调用失败
+- 如遇到 API 错误，请尝试减小上下文窗口大小`
       },
       advanced: {
         title: '🚀 高级功能配置',
@@ -1244,6 +1296,41 @@ DeepReview 支持多个 AI 供应商，您可以选择最适合您需求和预�
 
 - 随时取消，服务使用至当期结束
 - 自动续费（可关闭）`
+      },
+      legal: {
+        title: '⚖️ 法律声明与免责',
+        content: `## ⚖️ 法律声明与免责
+
+### 🤖 AI结果免责声明
+
+**重要提示**：所有AI生成的审查结果和建议仅供参考，不应被视为专业建议或保证的解决方案。
+
+- AI分析结果**不保证准确性或完整性**
+- 用户必须在实施前**独立验证所有AI建议**
+- DeepReview**不保证任何AI生成内容的正确性**
+- 用户**完全负责**基于AI输出做出的任何决定
+- AI模型可能产生**误报、漏报或错误建议**
+
+**建议**：在评估AI建议时始终使用人类判断和专业知识。将AI输出视为进一步调查的有用起点，而非最终指导。
+
+### 🛡️ 第三方服务
+
+DeepReview集成了各种第三方AI服务。用户有责任：
+
+- 遵守各AI供应商的服务条款
+- 管理自己的API使用和费用
+- 了解各AI模型的局限性
+- 保护其API密钥和凭据
+
+### 📜 开源组件
+
+本软件包含以下开源组件：
+- **Monaco Editor** - Microsoft Corporation (MIT许可证)
+- **Mammoth.js** - Michael Williamson (BSD 2-Clause许可证)
+
+### ⚠️ 责任限制
+
+DeepReview及其开发者不对因使用AI生成内容或本软件而产生的任何直接、间接、偶然、特殊或后果性损害承担责任。`
       },
       support: {
         title: '📞 支持与反馈',
