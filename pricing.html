@@ -187,29 +187,36 @@
         <div class="note" style="margin-top: 16px;">Stops auto-renew at period end. Current period access is unaffected.</div>
       </div>
 
-      <div class="pricing-faq">
-        <h3>Frequently Asked Questions</h3>
-        <details>
-          <summary>Can I cancel anytime?</summary>
-          <p>Yes, you can cancel your subscription at any time. Your access continues until the end of your billing period.</p>
-        </details>
-        <details>
-          <summary>What are custom rules?</summary>
-          <p>Create your own code review rules tailored to your team's specific standards and requirements.</p>
-        </details>
-        <details>
-          <summary>How does parallel processing work?</summary>
-          <p>Process multiple files simultaneously for faster review times, especially beneficial for large codebases.</p>
-        </details>
-        <details>
-          <summary>What is merge analysis?</summary>
-          <p>Analyze related files as a whole to validate overall logic and cross-file dependencies.</p>
-        </details>
+
+
+      <!-- Trust Signals -->
+      <div class="trust-signals center" style="margin: 40px 0; padding: 24px; background: var(--panel); border-radius: 12px; border: 1px solid var(--line);">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 20px;">
+          <div class="trust-item">
+            <div style="font-size: 24px; margin-bottom: 8px;">🎯</div>
+            <strong>7-Day Free Trial</strong>
+            <div class="muted" style="font-size: 14px;">Full Pro access, no credit card needed</div>
+          </div>
+          <div class="trust-item">
+            <div style="font-size: 24px; margin-bottom: 8px;">✅</div>
+            <strong>Cancel Anytime</strong>
+            <div class="muted" style="font-size: 14px;">Easy subscription management</div>
+          </div>
+          <div class="trust-item">
+            <div style="font-size: 24px; margin-bottom: 8px;">🔒</div>
+            <strong>Secure Payments</strong>
+            <div class="muted" style="font-size: 14px;">Processed by Paddle</div>
+          </div>
+        </div>
+        <div class="muted" style="font-size: 14px;">
+          Questions? Read our <a href="terms.html">Terms</a>, <a href="privacy.html">Privacy</a>, and <a href="refund.html">Refund Policy</a>
+        </div>
       </div>
 
       <div class="note center">
         We highly value all user experiences, and all basic features are open to the free version.<br>
-        For teams or enterprise licenses, contact us: <a href="mailto:support@deepreview.cloud">support@deepreview.cloud</a><br>
+        <strong>Team usage:</strong> Each team member needs their own individual subscription.<br>
+        Questions? Contact us: <a href="mailto:support@deepreview.cloud">support@deepreview.cloud</a><br>
         Thank you for your support! 🙏
       </div>
     </div>
@@ -243,8 +250,8 @@
   </footer>
 
   <script>
-    // Environment toggle: set to 'sandbox' or 'live' (or via ?env=live)
-    const DR_ENV = (new URLSearchParams(location.search).get('env')) || 'sandbox';
+    // Environment toggle: set to 'sandbox' or 'live' (or via ?env=sandbox for testing)
+    const DR_ENV = (new URLSearchParams(location.search).get('env')) || 'live';
 
     // Centralized Paddle environment configuration
     const ENV_CONFIG = {
