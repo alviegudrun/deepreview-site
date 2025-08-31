@@ -7,6 +7,7 @@
   <link rel="icon" type="image/svg+xml" href="../icons/icon.svg">
   <link rel="shortcut icon" href="../icons/icon.svg">
   <link rel="stylesheet" href="assets/style.css">
+  <script src="assets/url-params-handler.js"></script>
   <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
 </head>
 <body>
@@ -494,7 +495,10 @@ Thank you for your support! 🙏`;
           window.close();
         } else {
           // Redirect to success page
-          window.location.href = 'index.html?success=true';
+          const successUrl = window.urlParamsHandler ? 
+            window.urlParamsHandler.buildURLWithParams('index.html', { success: 'true' }) : 
+            'index.html?success=true';
+          window.location.href = successUrl;
         }
       }, 3000);
     }
