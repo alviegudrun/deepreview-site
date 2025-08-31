@@ -21,6 +21,14 @@ class UserGuideApp {
     this.showSection(this.currentSection);
     this.updateLanguageToggle();
     this.updateLastUpdated();
+    this.handleUserInfoFromURL();
+    
+    // 确保链接更新（统一机制）
+    setTimeout(() => {
+      if (window.forceUpdateLinks) {
+        window.forceUpdateLinks();
+      }
+    }, 100);
   }
 
   getLanguageFromURL() {
@@ -439,7 +447,6 @@ DeepReview is a highly flexible AI-powered review tool that supports both predef
 - **Technical Documentation**: API docs, user manuals, technical specifications
 - **Consistency Checks**: Terminology usage, format uniformity, content completeness
 - **Readability Enhancement**: Language clarity, logical structure, example code
-- **Code Review**: Automated Pull Request reviews
 - **Standardization**: Unified team coding standards
 
 ### 💻 Review Workflow
@@ -590,11 +597,11 @@ DeepReview supports multiple AI providers. Choose the one that best fits your ne
 | **Google Gemini** | Gemini-1.5 Pro, Gemini-1.5 Flash, Gemini-2.5 Pro, Gemini-2.5 Flash | 32K - 1M tokens | [ai.google.dev](https://ai.google.dev) |
 | **Alibaba Qwen** | Qwen-Max, Qwen-Plus, Qwen-Turbo | 131K tokens | [dashscope.aliyuncs.com](https://dashscope.aliyuncs.com) |
 | **Moonshot (Kimi)** | Moonshot-v1-8k, Moonshot-v1-32k, Moonshot-v1-128k | 8K - 131K tokens | [platform.moonshot.cn](https://platform.moonshot.cn) |
-| **OpenAI Compatible** | Support for local models and custom APIs | Varies by provider | Various (Ollama, vLLM, LM Studio, etc.) |
+| **OpenAI Compatible** | Support for custom API endpoints | Varies by provider | Various third-party providers |
 
 > **Important Disclaimer**: DeepReview is an independent third-party tool and has no official partnership, affiliation, or endorsement from any of the AI providers listed above. Users must obtain their own API keys directly from the respective providers and comply with each provider's terms of service. DeepReview simply provides a convenient interface to connect to these services using your personal API credentials.
 
-> **Note about OpenAI Compatible**: If your preferred AI provider is not listed above, you can try connecting through the "OpenAI Compatible" option. Many AI providers and local model servers (like Ollama, vLLM, LM Studio, Text Generation WebUI, etc.) support OpenAI-compatible APIs. Simply select "OpenAI Compatible" as your provider, enter the appropriate API endpoint URL, and use your provider's API key.
+> **Note about OpenAI Compatible**: If your preferred AI provider is not listed above, you can try connecting through the "OpenAI Compatible" option. Many third-party AI providers support OpenAI-compatible APIs. Simply select "OpenAI Compatible" as your provider, enter the appropriate API endpoint URL, and use your provider's API key.
 
 ### 🔧 Configuration Steps
 
@@ -607,36 +614,11 @@ DeepReview supports multiple AI providers. Choose the one that best fits your ne
 
 ### 🔐 Security & Privacy
 
-- **Local Storage**: All API keys are stored locally on your device
-- **Encryption**: API keys are encrypted before storage
+- **Local Storage**: All API keys are stored locally on your device using Chrome's secure storage
 - **No Server Transit**: Your keys never pass through our servers
 - **Direct Communication**: DeepReview connects directly to your chosen AI provider
 
-### 🏠 Local Model Deployment
 
-You can also run AI models locally using **Ollama** and connect them to DeepReview.
-
-#### Using Ollama
-
-**Ollama** is the easiest way to run local AI models. It supports popular models like Llama, Mistral, CodeLlama, and Qwen.
-
-**Installation & Setup:**
-
-1. Download and install Ollama from [ollama.ai](https://ollama.ai)
-2. Start Ollama service: \`ollama serve\`
-3. Download a model: \`ollama pull codellama:13b\`
-4. In DeepReview, select "OpenAI Compatible" as AI Provider
-5. Set API URL to local url (eg. \`http://localhost:11434/v1/chat/completions\`) 
-6. Use any dummy key like \`local-key\` for API Key
-7. Enter your model name (e.g., \`codellama:13b\`)
-8. Test the connection to verify setup
-
-**Benefits of Local Models:**
-
-- **Privacy**: All data stays on your device
-- **Cost**: No API usage fees after initial setup
-- **Offline**: Works without internet connection
-- **Customization**: Choose from various specialized models
 
 ### 🛠️ Common API Issues & Solutions
 
@@ -786,13 +768,36 @@ You can also run AI models locally using **Ollama** and connect them to DeepRevi
 ### Data Privacy
 
 - All processing happens locally or through your chosen AI provider
-- No data stored on our servers
-- API keys encrypted locally
+- Your code and documents never pass through our servers
+- API keys stored locally using Chrome's secure storage system
+- No content data collection or sharing
 
 ### Security Features
 
-- Secure API key storage
-- Local processing options`
+- Local API key storage (protected by Chrome's security system)
+- Direct connection to AI providers using your own credentials
+- No intermediate servers for content processing
+- Local storage of all settings and preferences
+
+### What We Store
+
+**Locally on Your Device:**
+- API keys and provider settings
+- Custom validation rules you create
+- Usage history and review results
+- Interface preferences and settings
+
+**On Our Servers (Minimal):**
+- Basic account information (email, name from Google OAuth)
+- Subscription status and billing information
+- No source code, documents, or AI analysis results
+
+### Third-Party Data Sharing
+
+- **AI Providers**: Your content is sent directly to your chosen AI provider using your API keys
+- **Payment Processing**: Handled by Paddle (our payment processor)
+- **Authentication**: Google OAuth for secure login
+- **No Content Sharing**: We never see or store your code or documents`
       },
       subscription: {
         title: '💎 Subscription Policy',
@@ -900,7 +905,6 @@ DeepReview 是一个高度灵活的 AI 驱动的审查工具，支持预定义�
 - **技术文档**：API文档、用户手册、技术规范
 - **一致性检查**：术语使用、格式统一、内容完整性
 - **可读性提升**：语言清晰度、逻辑结构、示例代码
-- **代码评审**：Pull Request 自动审查
 - **标准化**：团队编码规范统一
 
 ### 💻 审查工作流程
@@ -1051,11 +1055,11 @@ DeepReview 支持多个 AI 供应商，您可以选择最适合您需求和预�
 | **Google Gemini** | Gemini-1.5 Pro, Gemini-1.5 Flash, Gemini-2.5 Pro, Gemini-2.5 Flash | 32K - 1M tokens | [ai.google.dev](https://ai.google.dev) |
 | **阿里云通义千问** | Qwen-Max, Qwen-Plus, Qwen-Turbo | 131K tokens | [dashscope.aliyuncs.com](https://dashscope.aliyuncs.com) |
 | **月之暗面 (Kimi)** | Moonshot-v1-8k, Moonshot-v1-32k, Moonshot-v1-128k | 8K - 131K tokens | [platform.moonshot.cn](https://platform.moonshot.cn) |
-| **OpenAI兼容** | 支持本地模型和自定义API | 因供应商而异 | 多种（Ollama、vLLM、LM Studio等） |
+| **OpenAI兼容** | 支持自定义API端点 | 因供应商而异 | 多种第三方供应商 |
 
 > **重要免责声明**: DeepReview是独立的第三方工具，与上述任何AI供应商均无官方合作关系、关联关系或背书。用户必须直接从相应的供应商处获取自己的API密钥，并遵守各供应商的服务条款。DeepReview仅提供便捷的界面来连接这些服务，使用您的个人API凭据。
 
-> **关于OpenAI兼容模式**: 如果您希望使用的AI供应商不在上述列表中，可以尝试通过"OpenAI兼容"选项进行连接。许多AI供应商和本地模型服务器（如Ollama、vLLM、LM Studio、Text Generation WebUI等）都支持OpenAI兼容的API接口。只需选择"OpenAI兼容"作为您的供应商，输入相应的API端点URL，并使用您的供应商API密钥即可。
+> **关于OpenAI兼容模式**: 如果您希望使用的AI供应商不在上述列表中，可以尝试通过"OpenAI兼容"选项进行连接。许多第三方AI供应商都支持OpenAI兼容的API接口。只需选择"OpenAI兼容"作为您的供应商，输入相应的API端点URL，并使用您的供应商API密钥即可。
 
 ### 🔧 配置步骤
 
@@ -1068,36 +1072,11 @@ DeepReview 支持多个 AI 供应商，您可以选择最适合您需求和预�
 
 ### 🔐 安全与隐私
 
-- **本地存储**：所有 API 密钥都存储在您的设备上
-- **加密存储**：API 密钥在存储前会被加密
+- **本地存储**：所有 API 密钥都使用Chrome的安全存储系统存储在您的设备上
 - **无服务器传输**：您的密钥永远不会通过我们的服务器
 - **直接通信**：DeepReview 直接连接到您选择的 AI 供应商
 
-### 🏠 本地模型部署
 
-您可以使用 **Ollama** 在本地运行 AI 模型，并连接到 DeepReview。
-
-#### 使用 Ollama
-
-**Ollama** 是运行本地 AI 模型最简单的方式，支持 Llama、Mistral、CodeLlama 和 Qwen 等热门模型。
-
-**安装与设置：**
-
-1. 从 [ollama.ai](https://ollama.ai) 下载并安装 Ollama
-2. 启动 Ollama 服务：\`ollama serve\`
-3. 下载模型：\`ollama pull codellama:13b\`
-4. 在 DeepReview 中选择"OpenAI Compatible"作为 AI 供应商
-5. 设置 API URL 为本地URL，例如 \`http://localhost:11434/v1/chat/completions\`
-6. 使用任意虚拟密钥如 \`local-key\` 作为 API 密钥
-7. 输入模型名称（如 \`codellama:13b\`）
-8. 测试连接以验证设置
-
-**本地模型的优势：**
-
-- **隐私保护**：所有数据保留在您的设备上
-- **成本节约**：初始设置后无 API 使用费用
-- **离线工作**：无需互联网连接即可使用
-- **模型选择**：可选择各种专业模型
 
 ### 🛠️ API 常见问题与解决方案
 
@@ -1146,7 +1125,7 @@ DeepReview 支持多个 AI 供应商，您可以选择最适合您需求和预�
 - **成本效益优先**：OpenAI GPT-4o-mini、月之暗面或本地模型
 - **中文内容优化**：通义千问、文心一言、混元或豆包
 - **最新功能体验**：GPT-4o、Claude-3.5 Sonnet 或 Gemini-1.5 Pro
-- **隐私保护优先**：通过 Ollama、vLLM 或 LM Studio 部署的本地模型`
+- **隐私保护优先**：选择信誉良好的AI供应商并仔细阅读其隐私政策`
       },
       basic: {
         title: '⚙️ 基础设置配置',
@@ -1157,7 +1136,7 @@ DeepReview 支持多个 AI 供应商，您可以选择最适合您需求和预�
 | 设置项 | 功能 | 默认值/选项 | 注意事项 |
 |-------|------|------------|----------|
 | **语言** | 设置用户界面语言 | English, 中文 | 影响界面语言及AI返回结果 |
-| **AI供应商** | 选择AI服务提供商 | OpenAI, Claude, DeepSeek, Gemini, 通义千问, Kimi, 文心一言, 混元, 豆包, Grok, OpenAI Compatible | 每个供应商有不同的模型、定价和功能 |
+| **AI供应商** | 选择AI服务提供商 | OpenAI, Claude, DeepSeek, Gemini, 通义千问, Kimi, 豆包, Grok, OpenAI Compatible | 每个供应商有不同的模型、定价和功能 |
 | **AI模型** | 选择具体模型 | 根据供应商自动更新 | 更大模型 = 更好质量 + 更高成本 |
 | **API URL** | 自定义API端点 | 根据供应商自动填充 | 仅OpenAI Compatible时必填 |
 | **API密钥** | 身份验证凭据 | 用户提供 | 本地加密存储，绝不与服务器共享 |
@@ -1455,6 +1434,24 @@ DeepReview及其开发者不对因使用AI生成内容或本软件而产生的�
       }
     };
     document.addEventListener('keydown', handleKeydown);
+  }
+
+  /**
+   * 处理从扩展传递过来的用户信息
+   * 统一由url-params-handler.js处理，这里只做日志
+   */
+  handleUserInfoFromURL() {
+    // 完全依赖通用模块，不做任何处理
+    if (window.urlParamsHandler && window.urlParamsHandler.hasUserInfo()) {
+      console.log('✅ 用户手册页面：用户信息由通用模块处理');
+    }
+  }
+
+  /**
+   * 已移除，完全由通用模块处理
+   */
+  updatePricingLinks() {
+    // 空函数，保持兼容性
   }
 }
 
