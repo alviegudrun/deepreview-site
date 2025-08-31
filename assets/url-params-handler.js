@@ -86,7 +86,6 @@ class URLParamsHandler {
       // 只有当URL确实改变时才更新
       if (newUrl !== originalHref && newUrl !== targetPage) {
         linkElement.href = newUrl;
-        console.log('🔗 链接已更新:', targetPage, '→', newUrl);
       }
     } catch (error) {
       console.warn('❌ 链接更新失败:', targetPage, error);
@@ -97,9 +96,11 @@ class URLParamsHandler {
    * 更新所有相关链接
    */
   updateAllLinks() {
-    console.log('🔄 开始更新所有链接，用户信息:', this.hasUserInfo() ? this.userParams : '无');
+    if (!this.hasUserInfo()) {
+      return; // 没有用户信息时不需要更新
+    }
     
-    // 更新pricing链接 - 使用更全面的选择器
+    // 更新pricing链接
     const pricingLinks = [
       ...document.querySelectorAll('a[href="pricing.html"]'),
       ...document.querySelectorAll('a[href*="pricing.html"]'),
@@ -107,33 +108,31 @@ class URLParamsHandler {
       document.getElementById('getStartedBtn')
     ].filter(Boolean);
 
-    console.log('🔍 找到的pricing链接数量:', pricingLinks.length);
     pricingLinks.forEach(link => {
-      console.log('🔗 处理pricing链接:', link.href, link.id || link.className);
       this.updateLink(link, 'pricing.html');
     });
 
     // 更新user-guide链接
     const userGuideLinks = [
-      document.querySelector('a[href="user-guide.html"]'),
-      document.querySelector('a[href*="user-guide.html"]'),
-      ...document.querySelectorAll('a[href="user-guide.html"], a[href*="user-guide.html"]')
+      ...document.querySelectorAll('a[href="user-guide.html"]'),
+      ...document.querySelectorAll('a[href*="user-guide.html"]')
     ].filter(Boolean);
 
     userGuideLinks.forEach(link => {
       this.updateLink(link, 'user-guide.html');
     });
 
-    // 更新index链接（保持用户信息但通常不需要）
-    const indexLinks = [
-      document.querySelector('a[href="index.html"]'),
-      document.querySelector('.brand[href="index.html"]'),
-      ...document.querySelectorAll('a[href="index.html"]')
-    ].filter(Boolean);
-
-    indexLinks.forEach(link => {
-      // 对于首页链接，我们通常不传递用户信息，除非有特殊需要
-      // this.updateLink(link, 'index.html');
+    // 更新所有网站页面链接
+    const websitePages = ['terms.html', 'privacy.html', 'refund.html', 'index.html'];
+    websitePages.forEach(page => {
+      const pageLinks = [
+        ...document.querySelectorAll(`a[href="${page}"]`),
+        ...document.querySelectorAll(`a[href*="${page}"]`)
+      ].filter(Boolean);
+      
+      pageLinks.forEach(link => {
+        this.updateLink(link, page);
+      });
     });
   }
 
@@ -142,7 +141,6 @@ class URLParamsHandler {
    */
   init() {
     const doInit = () => {
-      console.log('🚀 URL参数处理器开始初始化');
       this.updateAllLinks();
       this.observeNewLinks();
     };
@@ -218,10 +216,9 @@ class URLParamsHandler {
 // 创建全局实例
 window.urlParamsHandler = new URLParamsHandler();
 
-// 添加全局函数供调试和强制更新使用
+// 添加全局函数供强制更新使用
 window.forceUpdateLinks = function() {
   if (window.urlParamsHandler) {
-    console.log('🔄 强制更新所有链接');
     window.urlParamsHandler.updateAllLinks();
   }
 };
